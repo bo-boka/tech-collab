@@ -1,0 +1,10 @@
+{% extends 'collab/base.html' %}
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ project.title }}</h1>
+    <h3>{{ project.founder }}</h3>
+
+    {{ project.technologies }}
+
+{% endblock %}
