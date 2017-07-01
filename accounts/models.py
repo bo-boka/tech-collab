@@ -21,6 +21,9 @@ class UserProfile(models.Model):
     availability = models.CharField(max_length=500, blank=True)
     # socials = models.
 
+    def __str__(self):
+        return unicode(self.user)
+
 
 # @receiver(post_save, sender=User)
 # def create_user_profile(sender, instance, created, **kwargs):
