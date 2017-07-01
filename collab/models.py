@@ -14,19 +14,6 @@ class Technology(models.Model):
         return self.name
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User)
-    phone = models.CharField(max_length=15)
-    picture = models.ImageField(blank=True)
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    technologies = models.ManyToManyField(Technology)
-    bio = models.CharField(max_length=500, blank=True)
-    experience = models.CharField(max_length=500, blank=True)
-    availability = models.CharField(max_length=500, blank=True)
-    # socials = models.
-
-
 class Project(models.Model):
     title = models.CharField(max_length=500)
     founder = models.ForeignKey(User, on_delete=models.CASCADE)

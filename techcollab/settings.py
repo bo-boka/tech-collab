@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'collab.apps.CollabConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
