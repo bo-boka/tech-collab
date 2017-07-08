@@ -19,6 +19,7 @@ class Project(models.Model):
     title = models.CharField(max_length=500)
     founder = models.ForeignKey(User, on_delete=models.CASCADE)
     # date = models.DateTimeField("Date", default=timezone.now())
+    # date won't convert format in Postgres
     date = models.DateTimeField("Date", default=datetime.now())
     description = models.CharField(blank=True, max_length=1000)
     technologies = models.ManyToManyField(Technology)
