@@ -2,9 +2,14 @@
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block body %}
+    <div class="container"></div>
     <h1>{{ project.title }}</h1>
     <h3>{{ project.founder }}</h3>
+    <h3>{{ project.date }}</h3>
 
-    {{ project.technologies }}
-
+    {% for tech in project.technologies.all %}
+        {{ tech }}
+        <br>
+    {% endfor %}
+    <br><br>
 {% endblock %}

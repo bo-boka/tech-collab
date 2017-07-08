@@ -19,7 +19,6 @@ class UserProfile(models.Model):
     bio = models.CharField(max_length=500, blank=True)
     experience = models.CharField(max_length=500, blank=True)
     availability = models.CharField(max_length=500, blank=True)
-    # socials = models.
 
     def __str__(self):
         return unicode(self.user)
@@ -34,4 +33,20 @@ class UserProfile(models.Model):
 # @receiver(post_save, sender=User)
 # def save_user_profile(sender, instance, **kwargs):
 #     instance.userprofile.save()
+
+
+class Platform(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
+class Social(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    platform = models.ForeignKey(Platform)
+    url = models.URLField()
+
+    def __str__(self):
+        return self.platform + ': ' + self.url
 

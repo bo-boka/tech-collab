@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from models import UserProfile
+from models import Platform, Social, UserProfile
 
 admin.site.register(UserProfile)
+admin.site.register(Platform)
+admin.site.register(Social)

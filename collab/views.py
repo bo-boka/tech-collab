@@ -5,6 +5,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from models import Project
+from models import Technology
+# from django.contrib.auth.decorators import login_required
 
 
 class HomeView(generic.ListView):
@@ -22,6 +24,10 @@ class ProjectView(generic.DetailView):
 class ProjectCreate(CreateView):
     model = Project
     fields = ['title', 'description', 'technologies']
+
+    def form_valid(self, form):
+        form.instance.founder = self.request.user
+        return super(ProjectCreate, self).form_valid(form)
 
 
 class ProjectUpdate(UpdateView):

@@ -4,35 +4,47 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import (
     authenticate,
-    get_user_model,
     login,
-    logout,
-)
-from accounts.forms import UserRegForm
-from accounts.forms import UserLoginForm
-from django.contrib.auth import authenticate, login
+    logout,)
+from .forms import UserRegForm
+from .forms import UserLoginForm
 from django.views.generic import View
+from django.core.urlresolvers import reverse_lazy
+from django.views import generic
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from collab.models import Project
 
 
-def login_view(request):
-    print(request.user.is_authenticated())
-    title = "Login"
-    form = UserLoginForm(request.POST or None)
-    if form.is_valid():
-        username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password")
-        user = authenticate(username=username, password=password)
-        login(request, user)
-        print(request.user.is_authenticated())
-    return render(request, "login.html", {"form": form, "title": title})
+class DashboardView(generic.ListView):
+    template_name = 'accounts/dashboard.html'
 
+    def get_queryset(self):
+        return Project.objects.filter(founder=self.request.user)
 
-# def register_view(request):
-#     return render(request, "form.html", {})
 
 def logout_view(request):
     logout(request)
-    return render(request, "form.html", {})
+    return redirect('home')
+
+
+class LoginView(View):
+    form_class = UserLoginForm
+    template_name = 'accounts/form.html'
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            print(request.user.is_authenticated()), 'yippy'
+            return redirect('accounts:dashboard')
+        return render(request, self.template_name, {'form': form})
 
 
 class RegisterView(View):

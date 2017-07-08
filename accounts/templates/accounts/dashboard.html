@@ -1,0 +1,13 @@
+{% extends 'collab/base.html' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for project in object_list %}
+                <a href="{% url 'collab:project' project.id %}">{{ project }}</a><br>
+            {% endfor %}
+        </div>
+
+    </div>
+
+{% endblock %}

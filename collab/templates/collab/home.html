@@ -2,9 +2,17 @@
 
 {% block body %}
     <div class="container-fluid">
+        <div class="jumbotron">
+          <center><h1>Welcome to TechCollab!</h1>
+          <p>A site for tech people to find and collaborate with other tech people locally!</p>
+          <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p></center>
+        </div>
+    </div>
+
+    <div class="container-fluid">
         <div class="row">
             {% for project in object_list %}
-                <a href="{% url 'collab:project' project.id %}">{{ project.title }}</a>
+                <a href="{% url 'collab:project' project.id %}">{{ project }}</a><br>
             {% endfor %}
         </div>
 
