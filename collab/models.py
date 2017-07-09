@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib import admin
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
@@ -19,7 +20,6 @@ class Project(models.Model):
     title = models.CharField(max_length=500)
     founder = models.ForeignKey(User, on_delete=models.CASCADE)
     # date = models.DateTimeField("Date", default=timezone.now())
-    # date won't convert format in Postgres
     date = models.DateTimeField("Date", default=datetime.now())
     description = models.CharField(blank=True, max_length=1000)
     technologies = models.ManyToManyField(Technology)
@@ -34,15 +34,6 @@ class Project(models.Model):
         return "" + self.title + ' - ' + unicode(self.founder)
 
 
-class Request(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
-    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipient')
-
-    def __str__(self):
-        return 'From: ' + unicode(self.sender) + ' | ' + unicode(self.project)
-
-
 class Collab(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
@@ -51,9 +42,19 @@ class Collab(models.Model):
         return unicode(self.user)
 
 
+class CollabInline(admin.TabularInline):
+    model = Collab
+    extra = 1
+
+
 class Match(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
     def __str__(self):
         return unicode(self.user)
+
+
+class MatchInline(admin.TabularInline):
+    model = Match
+    extra = 1

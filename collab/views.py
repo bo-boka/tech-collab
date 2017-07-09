@@ -32,7 +32,7 @@ class ProjectCreate(CreateView):
 
 class ProjectUpdate(UpdateView):
     model = Project
-    fields = []
+    fields = ['title', 'description', 'technologies', 'collaborators']
 
 
 class ProjectDelete(DeleteView):

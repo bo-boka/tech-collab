@@ -13,6 +13,14 @@ from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from collab.models import Project
+from django.contrib.auth.models import User
+from accounts.models import UserProfile
+
+
+class ProfileView(generic.DetailView):
+    model = User
+    slug_field = "username"
+    template_name = 'accounts/profile.html'
 
 
 class DashboardView(generic.ListView):

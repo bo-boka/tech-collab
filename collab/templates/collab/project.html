@@ -6,10 +6,21 @@
     <h1>{{ project.title }}</h1>
     <h3>{{ project.founder }}</h3>
     <h3>{{ project.date }}</h3>
-
+    <h2>Collaborators</h2>
+    {% for collab in project.collaborators.all %}
+        {{ collab }}
+        <br>
+    {% endfor %}
+    <hr>
+    <h2>Matches</h2>
+    {% for match in project.matches.all %}
+        {{ match }}
+        <br>
+    {% endfor %}
+    <hr>
     {% for tech in project.technologies.all %}
         {{ tech }}
         <br>
     {% endfor %}
-    <br><br>
+
 {% endblock %}

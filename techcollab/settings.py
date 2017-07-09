@@ -117,7 +117,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# set to false to avoid runtime warning with datetimefield in models after migrating
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

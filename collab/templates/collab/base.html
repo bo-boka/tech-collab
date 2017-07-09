@@ -59,7 +59,7 @@
                             <li><a href="{% url 'accounts:dashboard' %}">
                                 <span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Dashboard</a>
                             </li>
-                            <li><a href="#">
+                            <li><a href="{% url 'accounts:profile' user.username %}">
                                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a>
                             </li>
                             <li role="separator" class="divider"></li>

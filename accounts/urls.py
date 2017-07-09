@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^login/$', views.LoginView.as_view(), name='login'),
     url(r'^logout/$', logout_view, name='logout'),
     url(r'^dashboard/$', views.DashboardView.as_view(), name='dashboard'),
+    url(r'^(?P<slug>[\w.@+-]+)/$', views.ProfileView.as_view(), name='profile'),
 ]
