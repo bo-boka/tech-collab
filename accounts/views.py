@@ -26,16 +26,23 @@ class ProfileCreate(CreateView):
         return super(ProfileCreate, self).form_valid(form)
 
 
-class ProfileViewSelf(generic.DetailView):
+# class ProfileViewId(generic.DetailView):
+#     model = UserProfile
+#     template_name = 'accounts/profile.html'
+
+
+# username slug for profile view
+class ProfileView(generic.DetailView):
     model = User
     slug_field = "username"
     template_name = 'accounts/profile.html'
 
 
-# class ProfileViewPublic(generic.DetailView):
-#     model = User
-#     slug_field = "username"
-#     template_name = 'accounts/profile.html'
+# NOT USING
+class ProfileUpdateUser(UpdateView):
+    model = User
+    slug_field = "username"
+    fields = ['city', 'zip', 'technologies', 'phone', 'picture', 'bio', 'experience', 'availability']
 
 
 class ProfileUpdate(UpdateView):

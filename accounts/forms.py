@@ -36,8 +36,8 @@ class UserRegForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'username', 'email', 'password']
 
 
-class UserProfileForm(forms.ModelForm):
-
-    class Meta:
-        model = UserProfile
-        fields = ['phone', 'city']
+# class UserProfileForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = UserProfile
+#         fields = ['phone', 'city']

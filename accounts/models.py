@@ -23,6 +23,9 @@ class UserProfile(models.Model):
     experience = models.TextField(max_length=500, blank=True)
     availability = models.TextField(max_length=500, blank=True)
 
+    def get_absolute_url(self):
+        return reverse('accounts:profile', kwargs={'slug': self.user.username})
+
     def __str__(self):
         return unicode(self.user.username)
 
@@ -57,7 +60,7 @@ class Platform(models.Model):
     name = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.name
+        return unicode(self.name)
 
 
 class Social(models.Model):
@@ -66,7 +69,7 @@ class Social(models.Model):
     url = models.URLField()
 
     def __str__(self):
-        return self.platform + ': ' + self.url
+        return unicode(self.platform) + ': ' + unicode(self.url)
 
 
 class SocialInline(admin.TabularInline):

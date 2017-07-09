@@ -5,6 +5,10 @@
     <div class="container">
         <h1>User profile page</h1>
         <p>{{ user.username }}</p>
+        <p>{{ user.userprofile.city }}</p>
+        {% for soc in user.userprofile.social_set.all %}
+            <p>{{ soc.platform }}: <a href="{{ soc.url }}" target="_blank">{{ soc.url }}</a> </p>
+        {% endfor %}
     </div>
 
 

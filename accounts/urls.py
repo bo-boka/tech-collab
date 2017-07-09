@@ -11,15 +11,19 @@ urlpatterns = [
 
     url(r'^dashboard/$', views.DashboardView.as_view(), name='dashboard'),
 
-    # profile c
-    url(r'profile/add/$', views.ProfileCreate.as_view(), name='profile-add'),
+    # profile create --- already created when user registers
+    # url(r'profile/add/$', views.ProfileCreate.as_view(), name='profile-add'),
 
-    # profile view self
-    url(r'^(?P<slug>[\w.@+-]+)/$', views.ProfileViewSelf.as_view(), name='profile'),
-
-    # profile view other user
-    # url(r'profile/^(?P<slug>[\w.@+-]+)/$', views.ProfileViewPublic.as_view(), name='profile-public'),
+    # profile view using id
+    # url(r'^(?P<pk>[0-9]+)/$', views.ProfileViewId.as_view(), name='profile-id'),
 
     # profile view update
-    url(r'profile/update/^(?P<slug>[\w.@+-]+)/$', views.ProfileUpdate.as_view(), name='profile-update'),
+    url(r'profile/update/(?P<pk>[0-9]+)/$', views.ProfileUpdate.as_view(), name='profile-update'),
+
+    # profile view update with username slug --- doesn't work
+    url(r'profile/update/(?P<slug>[\w.@+-]+)/$', views.ProfileUpdateUser.as_view(), name='profile-update-user'),
+
+    # profile view user
+    # slug is for User not UserProfile
+    url(r'profile/(?P<slug>[\w.@+-]+)/$', views.ProfileView.as_view(), name='profile'),
 ]
