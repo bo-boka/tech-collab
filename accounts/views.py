@@ -17,10 +17,30 @@ from django.contrib.auth.models import User
 from accounts.models import UserProfile
 
 
-class ProfileView(generic.DetailView):
+class ProfileCreate(CreateView):
+    model = UserProfile
+    fields = ['city', 'zip', 'technologies', 'phone', 'picture', 'bio', 'experience', 'availability']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(ProfileCreate, self).form_valid(form)
+
+
+class ProfileViewSelf(generic.DetailView):
     model = User
     slug_field = "username"
     template_name = 'accounts/profile.html'
+
+
+# class ProfileViewPublic(generic.DetailView):
+#     model = User
+#     slug_field = "username"
+#     template_name = 'accounts/profile.html'
+
+
+class ProfileUpdate(UpdateView):
+    model = UserProfile
+    fields = ['city', 'zip', 'technologies', 'phone', 'picture', 'bio', 'experience', 'availability']
 
 
 class DashboardView(generic.ListView):

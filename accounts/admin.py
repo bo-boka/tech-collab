@@ -2,12 +2,16 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from models import Platform, Social, Request, UserProfile
-
-# class UserProfileAdmin(admin.ModelAdmin):
+from accounts.models import Platform, Social, SocialInline, Request, UserProfile
 
 
-admin.site.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user',)
+    search_fields = ['user']
+    filter_horizontal = ('technologies',)
+    inlines = (SocialInline,)
+
+
+admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Platform)
-admin.site.register(Social)
 admin.site.register(Request)
