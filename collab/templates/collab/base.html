@@ -34,14 +34,14 @@
                 <ul class="nav navbar-nav navbar-right">
                     {% if not request.user.is_authenticated %}
                         <li class="">
-                            <a href="{% url 'accounts:login' %}">
-                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Login
+                            <a href="{% url 'accounts:register' %}">
+                                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp;Register
                             </a>
                         </li>
                         <li><a>|</a></li>
                         <li class="">
-                            <a href="{% url 'accounts:register' %}">
-                                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp;Register
+                            <a href="{% url 'accounts:login' %}">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Login
                             </a>
                         </li>
                     {% endif %}

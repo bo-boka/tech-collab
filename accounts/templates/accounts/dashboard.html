@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container-fluid">
-        <h3><a href="{% url 'accounts:profile-update' user.userprofile.id %}">ADD TO PROFILE</a></h3>
+        <h3><a href="{% url 'accounts:profile-update' user.userprofile.id %}">BUILD PROFILE</a></h3>
         <div class="row">
             {% for project in object_list %}
                 <a href="{% url 'collab:project' project.id %}">{{ project }}</a><br>

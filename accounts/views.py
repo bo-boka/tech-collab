@@ -112,6 +112,6 @@ class RegisterView(View):
                 # if account isn't banned or something
                 if user.is_active:
                     login(request, user)
-                    return redirect('home')
+                    return redirect('accounts:dashboard')
         # else not auth, sent blank for back again
         return render(request, self.template_name, {'form': form})
