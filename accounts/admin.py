@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from accounts.models import Platform, Social, SocialInline, Request, UserProfile
+from accounts.models import Platform, SocialInline, Request, UserProfile
 
 
 class UserProfileAdmin(admin.ModelAdmin):

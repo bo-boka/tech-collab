@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from collab.models import Technology
 from collab.models import Project
+from collab.models import Platform
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from taggit.managers import TaggableManager
@@ -22,7 +23,7 @@ class UserProfile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     experience = models.TextField(max_length=500, blank=True)
     availability = models.TextField(max_length=500, blank=True)
-    skills = TaggableManager(help_text='A comma-separated list of skills')
+    skills = TaggableManager(verbose_name='Skills', help_text=('A comma-separated list of skills'))
 
     def get_absolute_url(self):
         return reverse('accounts:profile', kwargs={'slug': self.user.username})
@@ -57,14 +58,7 @@ class Request(models.Model):
 #     extra = 1
 
 
-class Platform(models.Model):
-    name = models.CharField(max_length=20)
-
-    def __str__(self):
-        return unicode(self.name)
-
-
-class Social(models.Model):
+class SocialUser(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     platform = models.ForeignKey(Platform)
     url = models.URLField()
@@ -74,5 +68,5 @@ class Social(models.Model):
 
 
 class SocialInline(admin.TabularInline):
-    model = Social
+    model = SocialUser
     extra = 1

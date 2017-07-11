@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from collab.views import HomeView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -23,5 +25,8 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^collab/', include('collab.urls')),
     url(r'^accounts/', include('accounts.urls')),
-
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -22,7 +22,8 @@ class Project(models.Model):
     founder = models.ForeignKey(User, on_delete=models.CASCADE)
     # date = models.DateTimeField("Date", default=timezone.now())
     date = models.DateTimeField("Date", default=datetime.now())
-    description = models.CharField(blank=True, max_length=1000)
+    description = models.TextField(blank=True, max_length=1000)
+    city = models.CharField(max_length=50)
     technologies = models.ManyToManyField(Technology)
     archived = models.BooleanField(default=False)
     matches = models.ManyToManyField(User, through='Match', related_name='matches')
@@ -52,7 +53,7 @@ class CollabInline(admin.TabularInline):
 class Match(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    rank = models.PositiveIntegerField()
+    rank = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
         return unicode(self.user)
@@ -61,3 +62,25 @@ class Match(models.Model):
 class MatchInline(admin.TabularInline):
     model = Match
     extra = 1
+
+
+class Platform(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return unicode(self.name)
+
+
+class SocialProj(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    platform = models.ForeignKey(Platform)
+    url = models.URLField()
+
+    def __str__(self):
+        return unicode(self.platform) + ': ' + unicode(self.url)
+
+
+class SocialInline(admin.TabularInline):
+    model = SocialProj
+    extra = 1
+
