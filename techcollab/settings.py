@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'collab.apps.CollabConfig',
     'accounts.apps.AccountsConfig',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +120,8 @@ USE_L10N = True
 
 # set to false to avoid runtime warning with datetimefield in models after migrating
 USE_TZ = False
+
+TAGGIT_CASE_INSENSITIVE = True
 
 
 # Static files (CSS, JavaScript, Images)

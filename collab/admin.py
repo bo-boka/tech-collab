@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from collab.models import Technology, Project, CollabInline, MatchInline
+from collab.models import Technology, Project, Collab, Match, CollabInline, MatchInline
 
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -19,3 +19,5 @@ class TechnologyAdmin(admin.ModelAdmin):
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Technology, TechnologyAdmin)
+admin.site.register(Collab)
+admin.site.register(Match)

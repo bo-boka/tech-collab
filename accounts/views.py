@@ -19,7 +19,7 @@ from accounts.models import UserProfile
 
 class ProfileCreate(CreateView):
     model = UserProfile
-    fields = ['city', 'zip', 'technologies', 'phone', 'picture', 'bio', 'experience', 'availability']
+    fields = ['city', 'zip', 'skills', 'phone', 'picture', 'bio', 'experience', 'availability']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -42,12 +42,12 @@ class ProfileView(generic.DetailView):
 class ProfileUpdateUser(UpdateView):
     model = User
     slug_field = "username"
-    fields = ['city', 'zip', 'technologies', 'phone', 'picture', 'bio', 'experience', 'availability']
+    fields = ['city', 'zip', 'skills', 'phone', 'picture', 'bio', 'experience', 'availability']
 
 
 class ProfileUpdate(UpdateView):
     model = UserProfile
-    fields = ['city', 'zip', 'technologies', 'phone', 'picture', 'bio', 'experience', 'availability']
+    fields = ['city', 'zip', 'skills', 'phone', 'picture', 'bio', 'experience', 'availability']
 
 
 class DashboardView(generic.ListView):

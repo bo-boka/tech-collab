@@ -41,3 +41,4 @@ class UserRegForm(forms.ModelForm):
 #     class Meta:
 #         model = UserProfile
 #         fields = ['phone', 'city']
+

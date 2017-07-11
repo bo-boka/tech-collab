@@ -6,6 +6,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from datetime import datetime
+from taggit.managers import TaggableManager
 # from django.utils import timezone
 
 
@@ -26,6 +27,7 @@ class Project(models.Model):
     archived = models.BooleanField(default=False)
     matches = models.ManyToManyField(User, through='Match', related_name='matches')
     collaborators = models.ManyToManyField(User, through='Collab', related_name='collaborators')
+    skills_needed = TaggableManager(verbose_name="Skills Needed", help_text="A comma-separated list of skills")
 
     def get_absolute_url(self):
         return reverse('collab:project', kwargs={'pk': self.pk})
@@ -50,6 +52,7 @@ class CollabInline(admin.TabularInline):
 class Match(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    rank = models.PositiveIntegerField()
 
     def __str__(self):
         return unicode(self.user)

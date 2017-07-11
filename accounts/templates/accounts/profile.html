@@ -9,6 +9,11 @@
         {% for soc in user.userprofile.social_set.all %}
             <p>{{ soc.platform }}: <a href="{{ soc.url }}" target="_blank">{{ soc.url }}</a> </p>
         {% endfor %}
+        <hr>
+        <hr>
+        {% for skill in user.userprofile.skills.all %}
+            {{ skill }} <br>
+        {% endfor %}
     </div>
 
 

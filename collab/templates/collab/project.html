@@ -5,6 +5,7 @@
     <div class="container"></div>
     <h1>{{ project.title }}</h1>
     <h3>{{ project.founder }}</h3>
+    <h4>{{ project.description }}</h4>
     <h3>{{ project.date }}</h3>
     <h2>Collaborators</h2>
     {% for collab in project.collaborators.all %}
@@ -21,6 +22,11 @@
     {% for tech in project.technologies.all %}
         {{ tech }}
         <br>
+    {% endfor %}
+<hr>
+<hr>
+    {% for skill in project.skills_needed.all %}
+        {{ skill }} <br>
     {% endfor %}
 
 {% endblock %}

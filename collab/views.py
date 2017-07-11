@@ -5,9 +5,10 @@ from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from models import Project
-from accounts.models import UserProfile
 from models import Technology
+from taggit.models import Tag
 from django.contrib.auth.models import User
+# from .forms import ProjectCreateForm
 # from django.contrib.auth.decorators import login_required
 
 
@@ -24,31 +25,42 @@ class ProjectView(generic.DetailView):
 
 
 class ProjectCreate(CreateView):
+    # form_class = ProjectCreateForm
     model = Project
-    fields = ['title', 'description', 'technologies']
+    fields = ['title', 'description', 'technologies', 'skills_needed']
 
     def generate_matches(self):
-        proj_techs = self.technologies
 
         # db queries to get matching users w matching project technologies
-        # gives repeat profiles
-        # gives userprofile per matching tech rather than giving users that match all techs!!
-            # maybe that could be good... users returned by frequency at top of list
-            # also try to return which techs the users matched on if possible
-        # and change to User rather than UserProfile probably
-        p_techs = Technology.objects.filter(project__id=self.id).values('id')
-        user_list = UserProfile.objects.filter(technologies__in=p_techs)
+
+        # users returned by frequency at top of list
+        # also try to return which techs the users matched on if possible
+        # p_techs = Technology.objects.filter(project__id=self.id).values('id')
+        # user_list = User.objects.filter(userprofile__technologies__in=p_techs)
+
+        p_skills = Tag.objects.filter(project__id=self.id)  # or self.skills_needed??
+        user_list = User.objects.filter(userprofile__skills__in=p_skills)
+
+        # dict = []  # ??
+        # for u in user_list:
+        #     if u in dict:
+        #
 
         # sort users based on frequency but will likely need to change matches to an ordered list
 
     def form_valid(self, form):
         form.instance.founder = self.request.user
+
+        # parse technologies list, adding new ones to Technology model
+
+        # self.object = form.save()
+        # self.generate_matches()
         return super(ProjectCreate, self).form_valid(form)
 
 
 class ProjectUpdate(UpdateView):
     model = Project
-    fields = ['title', 'description', 'technologies', 'collaborators']
+    fields = ['title', 'description', 'technologies', 'collaborators', 'skills_needed']
 
 
 class ProjectDelete(DeleteView):

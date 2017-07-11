@@ -9,6 +9,7 @@ from collab.models import Technology
 from collab.models import Project
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from taggit.managers import TaggableManager
 
 
 class UserProfile(models.Model):
@@ -16,12 +17,12 @@ class UserProfile(models.Model):
     phone = models.CharField(max_length=15)
     picture = models.ImageField(blank=True)
     city = models.CharField(max_length=50)
-    # state = models.CharField(max_length=50)
     zip = models.CharField(max_length=15)
     technologies = models.ManyToManyField(Technology, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     experience = models.TextField(max_length=500, blank=True)
     availability = models.TextField(max_length=500, blank=True)
+    skills = TaggableManager(help_text='A comma-separated list of skills')
 
     def get_absolute_url(self):
         return reverse('accounts:profile', kwargs={'slug': self.user.username})
