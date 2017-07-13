@@ -5,18 +5,16 @@ from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from models import Project
-from models import Technology
 from taggit.models import Tag
 from django.contrib.auth.models import User
+from collab.mixins import UserAuthMixin, AuthRequiredMixin
 # from .forms import ProjectCreateForm
 # from django.contrib.auth.decorators import login_required
 
 
 class HomeView(generic.ListView):
     template_name = 'collab/home.html'
-
-    def get_queryset(self):
-        return Project.objects.all()
+    queryset = Project.objects.filter(archived=False)
 
 
 class ProjectView(generic.DetailView):
@@ -24,10 +22,10 @@ class ProjectView(generic.DetailView):
     template_name = 'collab/project.html'
 
 
-class ProjectCreate(CreateView):
+class ProjectCreate(AuthRequiredMixin, CreateView):
     # form_class = ProjectCreateForm
     model = Project
-    fields = ['title', 'description', 'technologies', 'skills_needed']
+    fields = ['title', 'city', 'description', 'skills_needed']
 
     def generate_matches(self):
 
@@ -51,19 +49,17 @@ class ProjectCreate(CreateView):
     def form_valid(self, form):
         form.instance.founder = self.request.user
 
-        # parse technologies list, adding new ones to Technology model
-
         # self.object = form.save()
         # self.generate_matches()
         return super(ProjectCreate, self).form_valid(form)
 
 
-class ProjectUpdate(UpdateView):
+class ProjectUpdate(UserAuthMixin, UpdateView):
     model = Project
-    fields = ['title', 'description', 'technologies', 'collaborators', 'skills_needed']
+    fields = ['title', 'city', 'description', 'skills_needed', 'archived']
 
 
-class ProjectDelete(DeleteView):
+class ProjectDelete(UserAuthMixin, DeleteView):
     model = Project
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('accounts:dashboard')
 

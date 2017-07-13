@@ -5,6 +5,7 @@
     <div class="container"></div>
     <h1>{{ project.title }}</h1>
     <h3>{{ project.founder }}</h3>
+    <h3>{{ project.city }}</h3>
     <h4>{{ project.description }}</h4>
     <h3>{{ project.date }}</h3>
     <h2>Collaborators</h2>
@@ -13,20 +14,16 @@
         <br>
     {% endfor %}
     <hr>
-    <h2>Matches</h2>
-    {% for match in project.matches.all %}
-        {{ match }}
-        <br>
-    {% endfor %}
-    <hr>
-    {% for tech in project.technologies.all %}
-        {{ tech }}
-        <br>
-    {% endfor %}
-<hr>
-<hr>
     {% for skill in project.skills_needed.all %}
         {{ skill }} <br>
     {% endfor %}
+    <hr><hr><hr>
+    <p>**authenticated area for founder's eyes only**</p>
+    <h2>Matches</h2>
+    {% for match in project.matches.all %}
+        {{ match.rank }} {{ match }} **view profile **send request **remove from list
+        <br>
+    {% endfor %}
+
 
 {% endblock %}

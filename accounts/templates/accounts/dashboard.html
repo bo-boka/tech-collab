@@ -5,8 +5,39 @@
         <h3><a href="{% url 'accounts:profile-update' user.userprofile.id %}">BUILD PROFILE</a></h3>
         <div class="row">
             {% for project in object_list %}
-                <a href="{% url 'collab:project' project.id %}">{{ project }}</a><br>
+                <a href="{{ project.get_absolute_url }}">{{ project }}</a>
+                <a href="{% url 'collab:project-update' project.id %}">
+                    <button class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </button>
+                </a>
+                <form action="{% url 'collab:project-delete' project.id %}" mehtod="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="project_id" value="{{ project.id }}"/>
+                    <button type="submit" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </form>
+                <br>
+
             {% endfor %}
+        </div>
+        <div class="pagination">
+          <ul>
+              {% if paginator.has_previous %}
+                  <li><a href="?page={{ paginator.previous_page_number }}">Previous</a></li>
+              {% endif %}
+              {% for pg in paginator.page_range %}
+                  {% if posts.number == pg %}
+                      <li class="active"><a href="?page={{ pg }}">{{ pg }}</a></li>
+                  {% else %}
+                      <li><a href="?page={{ pg }}">{{ pg }}</a></li>
+                  {% endif %}
+              {% endfor %}
+              {% if paginator.has_next %}
+                  <li><a href="?page={{ paginator.next_page_number }}">Next</a></li>
+              {% endif %}
+          </ul>
         </div>
 
     </div>

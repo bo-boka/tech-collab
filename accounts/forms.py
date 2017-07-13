@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import (authenticate, get_user_model, login, logout)
-from .models import UserProfile
+from django.forms import ModelForm, inlineformset_factory
+from accounts.models import UserProfile
+from accounts.models import SocialUser
 from django import forms
 
 
@@ -36,9 +38,9 @@ class UserRegForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'username', 'email', 'password']
 
 
-# class UserProfileForm(forms.ModelForm):
-#
-#     class Meta:
-#         model = UserProfile
-#         fields = ['phone', 'city']
+class SocialUserForm(ModelForm):
+    class Meta:
+        model = SocialUser
+        exclude = ()
 
+SocialUserFormSet = inlineformset_factory(UserProfile, SocialUser, form=SocialUserForm, extra=1)

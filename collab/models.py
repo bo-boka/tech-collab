@@ -25,7 +25,7 @@ class Project(models.Model):
     description = models.TextField(blank=True, max_length=1000)
     city = models.CharField(max_length=50)
     technologies = models.ManyToManyField(Technology)
-    archived = models.BooleanField(default=False)
+    archived = models.BooleanField(verbose_name='Archive', default=False)
     matches = models.ManyToManyField(User, through='Match', related_name='matches')
     collaborators = models.ManyToManyField(User, through='Collab', related_name='collaborators')
     skills_needed = TaggableManager(verbose_name="Skills Needed", help_text="A comma-separated list of skills")
@@ -64,17 +64,24 @@ class MatchInline(admin.TabularInline):
     extra = 1
 
 
-class Platform(models.Model):
-    name = models.CharField(max_length=20)
-
-    def __str__(self):
-        return unicode(self.name)
-
-
 class SocialProj(models.Model):
+    WEBSITE = 'ps'
+    GITHUB = 'gh'
+    LINKEDIN = 'li'
+    TWITTER = 'tw'
+    TRELLO = 'tl'
+    FACEBOOK = 'fb'
+    PLATFORM_CHOICES = (
+        (WEBSITE, 'Website'),
+        (GITHUB, 'GitHub'),
+        (LINKEDIN, 'LinkedIn'),
+        (TWITTER, 'Twitter'),
+        (TRELLO, 'Trello'),
+        (FACEBOOK, 'Facebook')
+    )
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    platform = models.ForeignKey(Platform)
-    url = models.URLField()
+    platform = models.CharField(max_length=2, choices=PLATFORM_CHOICES, default=GITHUB)
+    url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return unicode(self.platform) + ': ' + unicode(self.url)

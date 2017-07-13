@@ -7,7 +7,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from collab.models import Technology
 from collab.models import Project
-from collab.models import Platform
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from taggit.managers import TaggableManager
@@ -16,7 +15,7 @@ from taggit.managers import TaggableManager
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=15)
-    picture = models.ImageField(blank=True)
+    picture = models.ImageField(blank=True, null=True)
     city = models.CharField(max_length=50)
     zip = models.CharField(max_length=15)
     technologies = models.ManyToManyField(Technology, blank=True)
@@ -27,6 +26,12 @@ class UserProfile(models.Model):
 
     def get_absolute_url(self):
         return reverse('accounts:profile', kwargs={'slug': self.user.username})
+
+    @property
+    def pic_url(self):
+        if self.picture and hasattr(self.picture, 'url'):
+            return self.picture.url
+        return '/static/images/default_prof_pic.jpg'
 
     def __str__(self):
         return unicode(self.user.username)
@@ -59,9 +64,23 @@ class Request(models.Model):
 
 
 class SocialUser(models.Model):
+    WEBSITE = 'ps'
+    GITHUB = 'gh'
+    LINKEDIN = 'li'
+    TWITTER = 'tw'
+    TRELLO = 'tl'
+    FACEBOOK = 'fb'
+    PLATFORM_CHOICES = (
+        (WEBSITE, 'Website'),
+        (GITHUB, 'GitHub'),
+        (LINKEDIN, 'LinkedIn'),
+        (TWITTER, 'Twitter'),
+        (TRELLO, 'Trello'),
+        (FACEBOOK, 'Facebook')
+    )
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    platform = models.ForeignKey(Platform)
-    url = models.URLField()
+    platform = models.CharField(max_length=2, choices=PLATFORM_CHOICES, default=WEBSITE)
+    url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return unicode(self.platform) + ': ' + unicode(self.url)

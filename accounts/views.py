@@ -1,12 +1,13 @@
 # # -*- coding: utf-8 -*-
 # from __future__ import unicode_literals
 #
+from django.db import transaction
 from django.shortcuts import render, redirect
 from django.contrib.auth import (
     authenticate,
     login,
     logout,)
-from .forms import UserRegForm
+from .forms import UserRegForm, SocialUserFormSet
 from .forms import UserLoginForm
 from django.views.generic import View
 from django.core.urlresolvers import reverse_lazy
@@ -17,32 +18,37 @@ from django.contrib.auth.models import User
 from accounts.models import UserProfile
 
 
-class ProfileCreate(CreateView):
+# adds inline form for social networks in update user profile
+class ProfileSocialCreate(CreateView):
     model = UserProfile
-    fields = ['city', 'zip', 'skills', 'phone', 'picture', 'bio', 'experience', 'availability']
+    fields = ['platform', 'url']
+    success_url = reverse_lazy('accounts:dashboard')
+
+    def get_context_data(self, **kwargs):
+        data = super(ProfileSocialCreate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['usersocials'] = SocialUserFormSet(self.request.POST)
+        else:
+            data['usersocials'] = SocialUserFormSet()
+        return data
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(ProfileCreate, self).form_valid(form)
+        context = self.get_context_data()
+        usersocials = context['usersocials']
+        with transaction.atomic():
+            self.object = form.save()
+
+            if usersocials.is_valid():
+                usersocials.instance = self.object
+                usersocials.save()
+        return super(ProfileSocialCreate, self).form_valid(form)
 
 
-# class ProfileViewId(generic.DetailView):
-#     model = UserProfile
-#     template_name = 'accounts/profile.html'
-
-
-# username slug for profile view
+# profile view w username slug
 class ProfileView(generic.DetailView):
     model = User
     slug_field = "username"
     template_name = 'accounts/profile.html'
-
-
-# NOT USING
-class ProfileUpdateUser(UpdateView):
-    model = User
-    slug_field = "username"
-    fields = ['city', 'zip', 'skills', 'phone', 'picture', 'bio', 'experience', 'availability']
 
 
 class ProfileUpdate(UpdateView):
@@ -52,6 +58,8 @@ class ProfileUpdate(UpdateView):
 
 class DashboardView(generic.ListView):
     template_name = 'accounts/dashboard.html'
+    # model = Project
+    paginate_by = 7
 
     def get_queryset(self):
         return Project.objects.filter(founder=self.request.user)
