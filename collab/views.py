@@ -22,6 +22,14 @@ class ProjectView(generic.DetailView):
     model = Project
     template_name = 'collab/project.html'
 
+    # putting Match objects from project in view ordered by rank
+    def get_context_data(self, **kwargs):
+        context = super(ProjectView, self).get_context_data(**kwargs)
+        # only load if request.user == founder
+        if self.request.user.id is self.get_object().founder.id:
+            context['match_list'] = Match.objects.filter(project=self.object.id).order_by('-rank')
+        return context
+
 
 class ProjectCreate(AuthRequiredMixin, CreateView):
     # form_class = ProjectCreateForm
@@ -30,17 +38,18 @@ class ProjectCreate(AuthRequiredMixin, CreateView):
 
     def generate_matches(self, form):
 
-        # form['skills_needed']  # returns boundwidget that needs parsing
-        # id = form.instance.id
+        # grabs project skills
         p_skills = Tag.objects.filter(project__id=form.instance.id)
+        # grabs users by matching skills
         user_list = User.objects.filter(userprofile__skills__in=p_skills)
-
+        # puts users in dict by their frequency in queryset
         dict = {}
         for u in user_list:
             if not u in dict:
                 dict[u] = 1
             else:
                 dict[u] += 1
+        # converts user into match obj with frequency as rank
         for key, value in dict.iteritems():
             print key, value
             m = Match(user=key, project=form.instance, rank=value)
@@ -57,8 +66,22 @@ class ProjectUpdate(UserAuthMixin, UpdateView):
     model = Project
     fields = ['title', 'city', 'description', 'skills_needed', 'archived']
 
+    def form_valid(self, form):
+        form.save()
+        # skills needed always shows up as changed
+        print ('skills_needed' in form.changed_data), 'expecting t or f'
+        # regenerates project matches
+        # need to clear old matches first
+        # ProjectCreate().generate_matches(form)
+        return super(ProjectUpdate, self).form_valid(form)
+
 
 class ProjectDelete(UserAuthMixin, DeleteView):
     model = Project
+    success_url = reverse_lazy('accounts:dashboard')
+
+
+class MatchDelete(UserAuthMixin, DeleteView):
+    model = Match
     success_url = reverse_lazy('accounts:dashboard')
 

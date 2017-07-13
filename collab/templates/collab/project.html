@@ -2,28 +2,42 @@
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block body %}
-    <div class="container"></div>
-    <h1>{{ project.title }}</h1>
-    <h3>{{ project.founder }}</h3>
-    <h3>{{ project.city }}</h3>
-    <h4>{{ project.description }}</h4>
-    <h3>{{ project.date }}</h3>
-    <h2>Collaborators</h2>
-    {% for collab in project.collaborators.all %}
-        {{ collab }}
-        <br>
-    {% endfor %}
-    <hr>
-    {% for skill in project.skills_needed.all %}
-        {{ skill }} <br>
-    {% endfor %}
-    <hr><hr><hr>
-    <p>**authenticated area for founder's eyes only**</p>
-    <h2>Matches ranked by relevancy</h2>
-    {% for match in project.matches.all %}
-        {{ match }} **view profile **send request **remove from list {{ match.id.rank }}
-        <br>
-    {% endfor %}
+    <div class="container">
+        <h1>{{ project.title }}</h1>
+        <h2>Matches ranked by relevancy</h2>
+        {% for m in match_list %}
+            <form action="" mehtod="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="" value=""/>
+                <button type="submit" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                </button>
+            </form>
+            <a href=" {{ m.user.userprofile.get_absolute_url }}">{{ m }}</a> matches on {{ m.rank }} skills.
+            <form action="{% url 'collab:project-delete' project.id %}" mehtod="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="project_id" value="{{ project.id }}"/>
+                <button type="submit" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+            </form>
+            <br>
+        {% endfor %}
 
+        <h3>Founder: {{ project.founder }}</h3>
+        <h3>City: {{ project.city }}</h3>
+        <h4>Description: {{ project.description }}</h4>
+        <h3>{{ project.date }}</h3>
+        <h2>Collaborators</h2>
+        {% for collab in project.collaborators.all %}
+            {{ collab }}
+            <br>
+        {% endfor %}
+        <hr>
+        <h3>Skills Needed</h3>
+        {% for skill in project.skills_needed.all %}
+            {{ skill }}
+        {% endfor %}
+    </div>
 
 {% endblock %}

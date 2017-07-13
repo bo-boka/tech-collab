@@ -3,29 +3,31 @@
 
 {% block body %}
     <div class="container">
-        <h1>User profile page</h1>
-        <img src="{{ user.userprofile.pic_url }}" class="img-responsive" style="width: 150px;">
-        <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
-        <p>Username: {{ user.username }}</p>
-        <p>City: {{ user.userprofile.city }}</p>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h1>{{ user.username }}</h1>
+                <img src="{{ user.userprofile.pic_url }}" class="img-responsive" style="width: 150px;">
+                <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+                <h2>City: {{ user.userprofile.city }}</h2>
 
-
-        <h4>Skills</h4>
-        {% for skill in user.userprofile.skills.all %}
-            {{ skill }} <br>
-        {% endfor %}
-        <hr>
-        <p>Availability: {{ user.userprofile.availability }}</p>
-        <p>Bio: {{ user.userprofile.bio }}</p>
-        <p>Experience: {{ user.userprofile.experience }}</p>
-        {% for soc in user.userprofile.social_set.all %}
-            <p>{{ soc.platform }}: <a href="{{ soc.url }}" target="_blank">{{ soc.url }}</a> </p>
-        {% endfor %}
-        <hr><hr><hr>
-        <h5>Contact Info</h5>
-        ** contact info to appear only for collaborators**
-        <h5>{{ user.userprofile.phone }}</h5>
-        <h5>{{ user.email }} </h5>
+                <h4>Skills</h4>
+                {% for skill in user.userprofile.skills.all %}
+                    {{ skill }}
+                {% endfor %}
+                <hr>
+                <p>Availability: {{ user.userprofile.availability }}</p>
+                <p>Bio: {{ user.userprofile.bio }}</p>
+                <p>Experience: {{ user.userprofile.experience }}</p>
+                {% for soc in user.userprofile.social_set.all %}
+                    <p>{{ soc.platform }}: <a href="{{ soc.url }}" target="_blank">{{ soc.url }}</a> </p>
+                {% endfor %}
+                <hr><hr><hr>
+                <h5>Contact Info</h5>
+                ** contact info to appear only for collaborators**
+                <h5>{{ user.userprofile.phone }}</h5>
+                <h5>{{ user.email }} </h5>
+            </div>
+        </div>
     </div>
 
 
