@@ -4,7 +4,8 @@ from __future__ import unicode_literals
 from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from models import Project
+from collab.models import Project
+from collab.models import Match
 from taggit.models import Tag
 from django.contrib.auth.models import User
 from collab.mixins import UserAuthMixin, AuthRequiredMixin
@@ -27,30 +28,28 @@ class ProjectCreate(AuthRequiredMixin, CreateView):
     model = Project
     fields = ['title', 'city', 'description', 'skills_needed']
 
-    def generate_matches(self):
+    def generate_matches(self, form):
 
-        # db queries to get matching users w matching project technologies
-
-        # users returned by frequency at top of list
-        # also try to return which techs the users matched on if possible
-        # p_techs = Technology.objects.filter(project__id=self.id).values('id')
-        # user_list = User.objects.filter(userprofile__technologies__in=p_techs)
-
-        p_skills = Tag.objects.filter(project__id=self.id)  # or self.skills_needed??
+        # form['skills_needed']  # returns boundwidget that needs parsing
+        # id = form.instance.id
+        p_skills = Tag.objects.filter(project__id=form.instance.id)
         user_list = User.objects.filter(userprofile__skills__in=p_skills)
 
-        # dict = []  # ??
-        # for u in user_list:
-        #     if u in dict:
-        #
-
-        # sort users based on frequency but will likely need to change matches to an ordered list
+        dict = {}
+        for u in user_list:
+            if not u in dict:
+                dict[u] = 1
+            else:
+                dict[u] += 1
+        for key, value in dict.iteritems():
+            print key, value
+            m = Match(user=key, project=form.instance, rank=value)
+            m.save()
 
     def form_valid(self, form):
         form.instance.founder = self.request.user
-
-        # self.object = form.save()
-        # self.generate_matches()
+        form.save()
+        self.generate_matches(form)
         return super(ProjectCreate, self).form_valid(form)
 
 

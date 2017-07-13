@@ -19,9 +19,9 @@
     {% endfor %}
     <hr><hr><hr>
     <p>**authenticated area for founder's eyes only**</p>
-    <h2>Matches</h2>
+    <h2>Matches ranked by relevancy</h2>
     {% for match in project.matches.all %}
-        {{ match.rank }} {{ match }} **view profile **send request **remove from list
+        {{ match }} **view profile **send request **remove from list {{ match.id.rank }}
         <br>
     {% endfor %}
 
