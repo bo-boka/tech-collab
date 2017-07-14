@@ -1,7 +1,31 @@
 body{
-    background-color: #cccccc;
+    background-color: #538262;
+    background-image: url("../images/circuit.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
 }
 
 .navbar-brand{
     font-family: 'Rock Salt', cursive;
+}
+
+.heading {
+  font-size:50px;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.color {
+  background-color: #a2c09a;
+}
+
+.skill {
+  background-color: #a2c09a;
+  color: white;
+  padding: 2px;
+  margin: 2px;
+  border: solid black 1px;
+  border-radius: 5px;
+  display: inline-block;
 }

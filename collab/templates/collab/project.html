@@ -1,43 +1,80 @@
 {% extends 'collab/base.html' %}
-{% block title %}{{ project.title }}{% endblock %}
+{% block title %}TechCollab | {{ project.title }}{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>{{ project.title }}</h1>
-        <h2>Matches ranked by relevancy</h2>
-        {% for m in match_list %}
-            <form action="" mehtod="post" style="display: inline;">
-                {% csrf_token %}
-                <input type="hidden" name="" value=""/>
-                <button type="submit" class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <center>
+                <button class="btn btn-success btn-lg" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  View Matches!! <span class="caret"></span>
                 </button>
-            </form>
-            <a href=" {{ m.user.userprofile.get_absolute_url }}">{{ m }}</a> matches on {{ m.rank }} skills.
-            <form action="{% url 'collab:project-delete' project.id %}" mehtod="post" style="display: inline;">
-                {% csrf_token %}
-                <input type="hidden" name="project_id" value="{{ project.id }}"/>
-                <button type="submit" class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                </button>
-            </form>
-            <br>
-        {% endfor %}
+                <div class="collapse" id="collapseExample">
+                  <div class="well">
+                        {% for m in match_list %}
+                        <div class="row" style="padding:5px; font-size: 20px;">
+                            <div class="col-md-1 col-md-offset-3">
+                                <form action="" method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="" value=""/>
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-md-4">
+                                <a href=" {{ m.user.userprofile.get_absolute_url }}">{{ m }}</a> matches on {{ m.rank }} skills.
+                            </div>
+                            <div class="col-md-1">
+                                <form action="{% url 'collab:project-delete' project.id %}" method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="project_id" value="{{ project.id }}"/>
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </form>
+                            </div>
+                            <br>
+                        </div>
+                        {% endfor %}
 
-        <h3>Founder: {{ project.founder }}</h3>
-        <h3>City: {{ project.city }}</h3>
-        <h4>Description: {{ project.description }}</h4>
-        <h3>{{ project.date }}</h3>
-        <h2>Collaborators</h2>
-        {% for collab in project.collaborators.all %}
-            {{ collab }}
-            <br>
-        {% endfor %}
-        <hr>
-        <h3>Skills Needed</h3>
-        {% for skill in project.skills_needed.all %}
-            {{ skill }}
-        {% endfor %}
+                  </div>
+                </div>
+                <div class="heading">{{ project.title }}</div>
+                {% for soc in project.socialproj_set.all %}
+                     <a href="{{ soc.url }}" target="_blank"><span class="{{ soc.get_platform_display }}"></span></a>&nbsp;
+                {% endfor %}
+                </center>
+                <div class="row container-fluid">
+                    <div class="panel">
+                        <div class="panel-body">
+                    <div class="col-md-6">
+                        <div class="well color">
+                            <h4>{{ project.city }}</h4>
+                            <h3>{{ project.description }}</h3>
+                            <hr>
+                            <h5>{{ project.date }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h2>Skills Needed</h2>
+                        {% for skill in project.skills_needed.all %}
+                            <div class="skill">{{ skill }}</div>
+                        {% endfor %}
+
+                        <h2>Collaborators</h2>
+                        <h4>Creator: <a href="{% url 'accounts:profile' project.founder %}">{{ project.founder }}</a></h4>
+                        {% for collab in project.collaborators.all %}
+                            <a href=" {{ collab.user.userprofile.get_absolute_url }}">{{ collab }}</a>
+                            <br>
+                        {% endfor %}
+
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

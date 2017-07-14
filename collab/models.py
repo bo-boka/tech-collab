@@ -72,12 +72,12 @@ class SocialProj(models.Model):
     TRELLO = 'tl'
     FACEBOOK = 'fb'
     PLATFORM_CHOICES = (
-        (WEBSITE, 'Website'),
-        (GITHUB, 'GitHub'),
-        (LINKEDIN, 'LinkedIn'),
-        (TWITTER, 'Twitter'),
-        (TRELLO, 'Trello'),
-        (FACEBOOK, 'Facebook')
+        (WEBSITE, 'fa fa-globe fa-3x'),
+        (GITHUB, 'fa fa-github fa-3x'),
+        (LINKEDIN, 'fa fa-linkedin fa-3x'),
+        (TWITTER, 'fa fa-twitter fa-3x'),
+        (TRELLO, 'fa fa-trello fa-3x'),
+        (FACEBOOK, 'fa fa-facebook fa-3x')
     )
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     platform = models.CharField(max_length=2, choices=PLATFORM_CHOICES, default=GITHUB)
