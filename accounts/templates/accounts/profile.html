@@ -8,7 +8,7 @@
                 <div class="row container-fluid">
                     <div class="col-md-4">
                         <center>
-                        <h1>{{ user.username }}</h1>
+                        <h1 class="heading" style="font-size: 25px;">{{ user.username }}</h1>
                         <img src="{{ user.userprofile.pic_url }}" class="img-responsive" style="width: 150px;">
                         {% for soc in user.userprofile.socialuser_set.all %}
                             <a href="{{ soc.url }}" target="_blank"><span class="{{ soc.get_platform_display }}"></span></a>&nbsp;

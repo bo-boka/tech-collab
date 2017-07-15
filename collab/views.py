@@ -25,7 +25,7 @@ class ProjectView(generic.DetailView):
     # putting Match objects from project in view ordered by rank
     def get_context_data(self, **kwargs):
         context = super(ProjectView, self).get_context_data(**kwargs)
-        # only load if request.user == founder
+        # only load if self.request.user == founder
         if self.request.user.id is self.get_object().founder.id:
             context['match_list'] = Match.objects.filter(project=self.object.id).order_by('-rank')
         return context

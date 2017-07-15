@@ -16,6 +16,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from collab.models import Project
 from django.contrib.auth.models import User
 from accounts.models import UserProfile
+from accounts.models import Request
 
 
 # adds inline form for social networks in update user profile
@@ -58,8 +59,17 @@ class ProfileUpdate(UpdateView):
 
 class DashboardView(generic.ListView):
     template_name = 'accounts/dashboard.html'
-    # model = Project
-    paginate_by = 7
+    context_object_name = 'project_list'
+    model = Project
+
+    # add request obj list to view
+    def get_context_data(self, **kwargs):
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        context.update({
+            'request_list': Request.objects.filter(recipient=self.request.user),
+            # 'more_context': Request.objects.all(),
+        })
+        return context
 
     def get_queryset(self):
         return Project.objects.filter(founder=self.request.user)

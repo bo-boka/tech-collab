@@ -5,51 +5,77 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-body">
+                <center>
+                <a class="btn btn-success btn-lg" style="margin: 10px;" role="button" href="{% url 'accounts:profile-update' user.userprofile.id %}">BUILD PROFILE</a>
+                </center>
                 <div class="row container-fluid">
-                    <div class="col-md-4">
-        <h3><a href="{% url 'accounts:profile-update' user.userprofile.id %}">BUILD PROFILE</a></h3>
-        <div class="row">
-            {% for project in object_list %}
-                <a href="{{ project.get_absolute_url }}">{{ project }}</a>
-                <a href="{% url 'collab:project-update' project.id %}">
-                    <button class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </button>
-                </a>
-                <form action="{% url 'collab:project-delete' project.id %}" method="post" style="display: inline;">
-                    {% csrf_token %}
-                    <input type="hidden" name="project_id" value="{{ project.id }}"/>
-                    <button type="submit" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    </button>
-                </form>
-                <br>
-
-            {% endfor %}
+                    <div class="panel panel-default">
+                        <div class="panel-body color">
+                            <div class="col-md-5 panel panel-default" style="margin: 10px;">
+                                <div class="panel-body">
+                                    <h3><strong>My Projects</strong></h3>
+                                    <hr>
+                                    <div class="row">
+                                        {% for project in project_list %}
+                                            <div class="row" style="padding:5px;">
+                                                <div class="col-md-8">
+                                                    <a href="{% url 'collab:project-update' project.id %}">
+                                                        <button class="btn btn-warning btn-sm">
+                                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                        </button>
+                                                    </a>
+                                                    <strong><a align="center" href="{{ project.get_absolute_url }}">{{ project }}</a></strong>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <form action="{% url 'collab:project-delete' project.id %}" method="post" style="display: inline;">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="project_id" value="{{ project.id }}"/>
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 panel panel-default" style="margin: 10px;">
+                                <div class="panel-body">
+                                    <h3><strong>Collab Requests</strong></h3>
+                                    <hr>
+                                    {% for req in request_list %}
+                                        <div class="row" style="padding:5px;">
+                                            <div class="col-md-2">
+                                                <a href="#">
+                                                    <button class="btn btn-success btn-sm">
+                                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <a href="{% url 'collab:project' req.project.id %}"><strong>{{ req.project.title }}</strong></a>
+                                                 - Created by: <a href="{% url 'accounts:profile' req.sender %}">{{ req.sender }}</a>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <form action="#" method="post" style="display: inline;">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="" value=""/>
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="pagination">
-          <ul>
-              {% if paginator.has_previous %}
-                  <li><a href="?page={{ paginator.previous_page_number }}">Previous</a></li>
-              {% endif %}
-              {% for pg in paginator.page_range %}
-                  {% if posts.number == pg %}
-                      <li class="active"><a href="?page={{ pg }}">{{ pg }}</a></li>
-                  {% else %}
-                      <li><a href="?page={{ pg }}">{{ pg }}</a></li>
-                  {% endif %}
-              {% endfor %}
-              {% if paginator.has_next %}
-                  <li><a href="?page={{ paginator.next_page_number }}">Next</a></li>
-              {% endif %}
-          </ul>
-        </div>
+    </div>
 
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
 
 {% endblock %}

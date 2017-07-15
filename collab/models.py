@@ -71,13 +71,17 @@ class SocialProj(models.Model):
     TWITTER = 'tw'
     TRELLO = 'tl'
     FACEBOOK = 'fb'
+    INSTAGRAM = 'ig'
+    YOUTUBE = 'yt'
     PLATFORM_CHOICES = (
         (WEBSITE, 'fa fa-globe fa-3x'),
         (GITHUB, 'fa fa-github fa-3x'),
         (LINKEDIN, 'fa fa-linkedin fa-3x'),
         (TWITTER, 'fa fa-twitter fa-3x'),
         (TRELLO, 'fa fa-trello fa-3x'),
-        (FACEBOOK, 'fa fa-facebook fa-3x')
+        (FACEBOOK, 'fa fa-facebook-square fa-3x'),
+        (INSTAGRAM, 'fa fa-instagram fa-3x'),
+        (YOUTUBE, 'fa fa-youtube fa-3x')
     )
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     platform = models.CharField(max_length=2, choices=PLATFORM_CHOICES, default=GITHUB)
