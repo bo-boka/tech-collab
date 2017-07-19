@@ -42,8 +42,10 @@ class ProjectCreate(AuthRequiredMixin, CreateView):
         p_skills = Tag.objects.filter(project__id=form.instance.id)
         # grabs project city
         p_city = Project.objects.filter(id=form.instance.id).values('city')
-        # grabs users by matching skills and location
-        user_list = User.objects.filter(userprofile__skills__in=p_skills).filter(userprofile__city=p_city)
+        # grabs users by matching skills and location, excludes project creator
+        user_list = User.objects.filter(userprofile__skills__in=p_skills
+                                        ).filter(userprofile__city=p_city
+                                                 ).exclude(id=form.instance.founder.id)
         # puts users in dict by their frequency in queryset
         dict = {}
         for u in user_list:
