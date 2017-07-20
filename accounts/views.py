@@ -2,7 +2,7 @@
 # from __future__ import unicode_literals
 #
 from django.db import transaction
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import (
     authenticate,
     login,
@@ -17,6 +17,8 @@ from collab.models import Project
 from django.contrib.auth.models import User
 from accounts.models import UserProfile
 from accounts.models import Request
+from collab.models import Match
+from collab.mixins import UserAuthMixin
 
 
 # adds inline form for social networks in update user profile
@@ -73,6 +75,25 @@ class DashboardView(generic.ListView):
 
     def get_queryset(self):
         return Project.objects.filter(founder=self.request.user)
+
+
+# get project_id, match_id, and add request w sender as user.request
+def sendrequest(request, project_id):
+    project = get_object_or_404(Project, pk=project_id)
+    try:
+        recipient = get_object_or_404(User, pk=request.POST['recipient_id'])
+
+    except (KeyError, Match.DoesNotExist):
+        return render(request, 'accounts/dashboard.html', {
+            'project': project,
+            'error_message': "You did not select a valid recipient",
+        })
+    else:
+        # create request obj
+        sender = request.user
+        req = Request(project=project, sender=sender, recipient=recipient, message="Let's work together")
+        req.save()
+        return redirect('accounts:dashboard')
 
 
 def logout_view(request):

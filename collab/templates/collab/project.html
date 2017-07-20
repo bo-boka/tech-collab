@@ -5,6 +5,9 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-body">
+                {% if error_message %}
+                    <p><strong>{{ error_message }}</strong></p>
+                {% endif %}
                 <center>
                 <button class="btn btn-success btn-lg" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                   View Matches!! <span class="caret"></span>
@@ -14,9 +17,9 @@
                         {% for m in match_list %}
                         <div class="row" style="padding:5px; font-size: 20px;">
                             <div class="col-md-1 col-md-offset-3">
-                                <form action="" method="post" style="display: inline;">
+                                <form action="{% url 'accounts:request-send' project.id %}" method="post" style="display: inline;">
                                     {% csrf_token %}
-                                    <input type="hidden" name="" value=""/>
+                                    <input type="hidden" name="recipient_id" value="{{ m.user.id }}"/>
                                     <button type="submit" class="btn btn-default btn-sm">
                                         <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                                     </button>

@@ -37,7 +37,6 @@ class ProjectCreate(AuthRequiredMixin, CreateView):
     fields = ['title', 'city', 'description', 'skills_needed']
 
     def generate_matches(self, form):
-
         # grabs project skills
         p_skills = Tag.objects.filter(project__id=form.instance.id)
         # grabs project city
