@@ -3,11 +3,11 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import datetime
 from taggit.managers import TaggableManager
-# from django.utils import timezone
+from django.utils import timezone
 
 
 class Technology(models.Model):
@@ -20,8 +20,7 @@ class Technology(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=500)
     founder = models.ForeignKey(User, on_delete=models.CASCADE)
-    # date = models.DateTimeField("Date", default=timezone.now())
-    date = models.DateTimeField("Date", default=datetime.now())
+    date = models.DateTimeField("Date", default=timezone.now)
     description = models.TextField(blank=True, max_length=1000)
     city = models.CharField(max_length=50)
     technologies = models.ManyToManyField(Technology)
@@ -34,7 +33,7 @@ class Project(models.Model):
         return reverse('collab:project', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return "" + self.title + ' - ' + unicode(self.founder)
+        return "" + self.title + ' - ' + str(self.founder)
 
 
 class Collab(models.Model):
@@ -42,7 +41,7 @@ class Collab(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
     def __str__(self):
-        return unicode(self.user)
+        return str(self.user)
 
 
 class CollabInline(admin.TabularInline):
@@ -56,7 +55,7 @@ class Match(models.Model):
     rank = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
-        return unicode(self.user)
+        return str(self.user)
 
 
 class MatchInline(admin.TabularInline):
@@ -88,7 +87,7 @@ class SocialProj(models.Model):
     url = models.URLField(blank=True, null=True)
 
     def __str__(self):
-        return unicode(self.platform) + ': ' + unicode(self.url)
+        return str(self.platform) + ': ' + str(self.url)
 
 
 class SocialInline(admin.TabularInline):

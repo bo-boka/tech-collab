@@ -1,17 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <option name="TRACKING_ENABLED" value="true" />
+    <list default="true" id="87c37c0e-eae3-46fb-a504-d525bee23b72" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.env_example.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/migrations/0002_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/environment.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0002_platform_social.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0003_auto_20170708_1852.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0004_request_message.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0005_auto_20170708_2120.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0006_auto_20170709_0018.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0007_userprofile_skills.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0008_auto_20170710_2358.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0009_auto_20170711_1244.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0010_auto_20170711_1418.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0011_auto_20170711_1501.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0012_socialuser.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0013_auto_20170711_2323.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0014_auto_20170712_1124.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0015_auto_20170712_2002.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0016_auto_20170714_0123.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/userprofile_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/accounts/userprofile_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/collab/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/collab/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0002_auto_20170628_1901.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0003_auto_20170628_1932.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0004_auto_20170628_2306.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0005_auto_20170629_1954.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0006_auto_20170630_0205.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0007_auto_20170630_2049.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0008_auto_20170701_0044.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0009_auto_20170707_1834.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0010_auto_20170707_1846.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0011_auto_20170707_1847.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0012_auto_20170707_1928.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0013_auto_20170707_2011.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0014_auto_20170707_2016.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0015_auto_20170707_2018.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0016_auto_20170707_2023.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0017_auto_20170707_2025.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0018_remove_project_date.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0019_project_date.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0020_auto_20170708_1108.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0021_auto_20170708_1239.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0022_auto_20170708_1326.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0023_auto_20170708_1331.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0024_auto_20170708_1852.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0025_auto_20170708_1859.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0026_auto_20170708_1917.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0027_auto_20170708_1943.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0028_auto_20170708_2120.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0029_auto_20170708_2200.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0030_auto_20170708_2202.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0031_auto_20170708_2211.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0032_auto_20170708_2216.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0033_auto_20170709_0018.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0034_auto_20170709_0025.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0035_auto_20170709_0114.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0036_auto_20170709_1329.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0037_auto_20170710_2243.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0038_auto_20170710_2253.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0039_auto_20170710_2336.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0040_auto_20170710_2350.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0041_auto_20170710_2358.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0042_auto_20170711_1240.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0043_auto_20170711_1244.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0044_auto_20170711_1412.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0045_auto_20170711_1418.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0046_auto_20170711_1439.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0047_auto_20170711_1455.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0048_auto_20170711_1501.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0049_auto_20170711_1501.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0050_auto_20170711_1503.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0051_auto_20170711_2302.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0052_auto_20170711_2323.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0053_auto_20170712_1124.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0054_auto_20170712_1142.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0055_auto_20170712_1207.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0056_auto_20170712_2002.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0057_auto_20170713_1143.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0058_auto_20170713_1148.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0059_auto_20170713_1149.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0060_auto_20170713_1200.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/migrations/0061_auto_20170714_0123.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/mixins.py" beforeDir="false" afterPath="$PROJECT_DIR$/collab/mixins.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/collab/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/templates/collab/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/collab/templates/collab/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/templates/collab/project.html" beforeDir="false" afterPath="$PROJECT_DIR$/collab/templates/collab/project.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/collab/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/techcollab/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/techcollab/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/techcollab/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/techcollab/urls.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1zNYVwJP442fyQQtKlG2ZrXeqna" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="87c37c0e-eae3-46fb-a504-d525bee23b72" name="Default Changelist" comment="" />
       <created>1498671095893</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -19,11 +152,15 @@
     </task>
     <servers />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager />
-    <watches-manager />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

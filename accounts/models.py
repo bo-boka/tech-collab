@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib import admin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.auth.models import User
 from collab.models import Technology
 from collab.models import Project
@@ -22,7 +22,7 @@ class UserProfile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     experience = models.TextField(max_length=500, blank=True)
     availability = models.TextField(max_length=500, blank=True)
-    skills = TaggableManager(verbose_name='Skills', help_text=('A comma-separated list of skills'))
+    skills = TaggableManager(verbose_name='Skills', help_text='A comma-separated list of skills')
 
     def get_absolute_url(self):
         return reverse('accounts:profile', kwargs={'slug': self.user.username})
@@ -34,7 +34,7 @@ class UserProfile(models.Model):
         return '/static/images/default_prof_pic.jpg'
 
     def __str__(self):
-        return unicode(self.user.username)
+        return str(self.user.username)
 
 
 @receiver(post_save, sender=User)
@@ -55,7 +55,7 @@ class Request(models.Model):
     message = models.TextField(max_length=500, blank=True)
 
     def __str__(self):
-        return 'From: ' + unicode(self.sender) + ' | ' + unicode(self.project)
+        return 'From: ' + str(self.sender) + ' | ' + str(self.project)
 
 
 # class RequestInline(admin.TabularInline):
@@ -87,7 +87,7 @@ class SocialUser(models.Model):
     url = models.URLField(blank=True, null=True)
 
     def __str__(self):
-        return unicode(self.platform) + ': ' + unicode(self.url)
+        return str(self.platform) + ': ' + str(self.url)
 
 
 class SocialInline(admin.TabularInline):

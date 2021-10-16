@@ -12,7 +12,8 @@ urlpatterns = [
     # profile view user
     url(r'profile/(?P<slug>[\w.@+-]+)/$', views.ProfileView.as_view(), name='profile'),
     # profile view update
-    url(r'profile/update/(?P<pk>[0-9]+)/$', views.ProfileUpdate.as_view(), name='profile-update'),
+    #url(r'profile/update/(?P<pk>[0-9]+)/$', views.ProfileUpdate.as_view(), name='profile-update'),
+    url(r'profile/update/(?P<pk>[0-9]+)/$', views.ProfileSocialCreate.as_view(), name='profile-update'),
     # create request
     url(r'request/send/(?P<project_id>[0-9]+)/$', views.sendrequest, name='request-send'),
 ]

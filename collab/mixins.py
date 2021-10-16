@@ -10,7 +10,7 @@ class AuthRequiredMixin(object):
     login_url = '/accounts/login'
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return redirect_to_login(request.get_full_path(), self.login_url)
 
         return super(AuthRequiredMixin, self).dispatch(

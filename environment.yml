@@ -1,0 +1,12 @@
+name: tech-collab-env
+dependencies:
+- python=3
+- Django=3.2.5
+- psycopg2=2.8.6
+- Pillow=8.3.1
+- beautifulsoup4=4.10.0
+- lxml=4.6.3
+- pip=21.2.4
+- pip:
+    -django-taggit=1.5.1
+    - python-decouple=3.5

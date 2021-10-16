@@ -10,7 +10,7 @@ from django.contrib.auth import (
 from .forms import UserRegForm, SocialUserFormSet
 from .forms import UserLoginForm
 from django.views.generic import View
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from collab.models import Project
@@ -24,7 +24,7 @@ from collab.mixins import UserAuthMixin
 # adds inline form for social networks in update user profile
 class ProfileSocialCreate(CreateView):
     model = UserProfile
-    fields = ['platform', 'url']
+    fields = ['city', 'zip', 'skills', 'phone', 'picture', 'bio', 'experience', 'availability']
     success_url = reverse_lazy('accounts:dashboard')
 
     def get_context_data(self, **kwargs):
@@ -47,38 +47,60 @@ class ProfileSocialCreate(CreateView):
         return super(ProfileSocialCreate, self).form_valid(form)
 
 
-# profile view w username slug
 class ProfileView(generic.DetailView):
+    """
+    Profile Page View
+    """
     model = User
     slug_field = "username"
     template_name = 'accounts/profile.html'
 
-
+'''
 class ProfileUpdate(UpdateView):
+    """
+    Profile Create & Update Form
+    """
     model = UserProfile
     fields = ['city', 'zip', 'skills', 'phone', 'picture', 'bio', 'experience', 'availability']
-
+'''
 
 class DashboardView(generic.ListView):
+    """
+    Dashboard Page View
+    """
     template_name = 'accounts/dashboard.html'
     context_object_name = 'project_list'
     model = Project
 
-    # add request obj list to view
     def get_context_data(self, **kwargs):
+        """
+        Puts Collab Request objects in context to list on dashboard.
+        :param kwargs:
+        :return:
+        """
         context = super(DashboardView, self).get_context_data(**kwargs)
         context.update({
             'request_list': Request.objects.filter(recipient=self.request.user),
-            # 'more_context': Request.objects.all(),
         })
         return context
 
     def get_queryset(self):
+        """
+        Puts Project objects in context to list on dashboard.
+        :return:
+        """
         return Project.objects.filter(founder=self.request.user)
 
 
 # get project_id, match_id, and add request w sender as user.request
 def sendrequest(request, project_id):
+    """
+    When user requests to work on a project with another user, a Collab Request is created that will
+    eventually be displayed on the recipient's dashboard the next time they log in.
+    :param request: request.POST includes recipient id
+    :param project_id: project id
+    :return: redirects to dashboard
+    """
     project = get_object_or_404(Project, pk=project_id)
     try:
         recipient = get_object_or_404(User, pk=request.POST['recipient_id'])
@@ -97,26 +119,45 @@ def sendrequest(request, project_id):
 
 
 def logout_view(request):
+    """
+    Logs the user out and redirects to the home page.
+    :param request: logout request
+    :return: redirects home
+    """
     logout(request)
     return redirect('home')
 
 
 class LoginView(View):
+    """
+    Login logic
+    """
     form_class = UserLoginForm
     template_name = 'accounts/form.html'
 
     def get(self, request):
+        """
+        Displays login form.
+        :param request: login request
+        :return: login form
+        """
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
+        """
+        Validates login form data, authenticates user, logs user in, & redirects to dashboard.
+        If login issue, goes back to login form.
+        :param request:
+        :return:
+        """
         form = self.form_class(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
             login(request, user)
-            print(request.user.is_authenticated()), 'yippy'
+            print(request.user.is_authenticated), 'yippy'
             return redirect('accounts:dashboard')
         return render(request, self.template_name, {'form': form})
 
@@ -125,14 +166,21 @@ class RegisterView(View):
     form_class = UserRegForm
     template_name = 'accounts/registration_form.html'
 
-    # since using same url for get and post reqs
-
-    # display blank form w get
     def get(self, request):
+        """
+        Displays registration form.
+        :param request: registration request
+        :return: registration form
+        """
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
+        """
+        Validates form data, creates user, authenticates user, logs in user, & redirects to dashboard.
+        :param request:
+        :return:
+        """
         form = self.form_class(request.POST)
 
         if form.is_valid():

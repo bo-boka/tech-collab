@@ -21,9 +21,13 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    # all admin views
     url(r'^admin/', admin.site.urls),
+    # home page
     url(r'^$', HomeView.as_view(), name='home'),
+    # all collab views
     url(r'^collab/', include('collab.urls')),
+    # all accounts views
     url(r'^accounts/', include('accounts.urls')),
 ]
 
