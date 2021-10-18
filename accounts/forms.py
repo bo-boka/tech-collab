@@ -43,4 +43,5 @@ class SocialUserForm(ModelForm):
         model = SocialUser
         exclude = ()
 
+
 SocialUserFormSet = inlineformset_factory(UserProfile, SocialUser, form=SocialUserForm, extra=1)

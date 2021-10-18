@@ -19,23 +19,36 @@ from accounts.models import UserProfile
 from accounts.models import Request
 from collab.models import Match
 from collab.mixins import UserAuthMixin
+from django.http import HttpResponseRedirect
 
 
-# adds inline form for social networks in update user profile
-class ProfileSocialCreate(CreateView):
+class ProfileSocialUpdate(UpdateView):
+    """
+    Profile Create/Update Form
+    """
     model = UserProfile
     fields = ['city', 'zip', 'skills', 'phone', 'picture', 'bio', 'experience', 'availability']
-    success_url = reverse_lazy('accounts:dashboard')
 
     def get_context_data(self, **kwargs):
-        data = super(ProfileSocialCreate, self).get_context_data(**kwargs)
+        """
+        Adds social media platforms formset to profile update form since they're on a related table
+        and are not easily accessed via Class-Based-Views.
+        :param kwargs:
+        :return:
+        """
+        context_data = super(ProfileSocialUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['usersocials'] = SocialUserFormSet(self.request.POST)
+            context_data['usersocials'] = SocialUserFormSet(self.request.POST, instance=self.object)
         else:
-            data['usersocials'] = SocialUserFormSet()
-        return data
+            context_data['usersocials'] = SocialUserFormSet(instance=self.object)
+        return context_data
 
     def form_valid(self, form):
+        """
+        Saves social media platforms to profile.
+        :param form:
+        :return:
+        """
         context = self.get_context_data()
         usersocials = context['usersocials']
         with transaction.atomic():
@@ -44,7 +57,7 @@ class ProfileSocialCreate(CreateView):
             if usersocials.is_valid():
                 usersocials.instance = self.object
                 usersocials.save()
-        return super(ProfileSocialCreate, self).form_valid(form)
+        return super(ProfileSocialUpdate, self).form_valid(form)
 
 
 class ProfileView(generic.DetailView):
@@ -57,9 +70,7 @@ class ProfileView(generic.DetailView):
 
 '''
 class ProfileUpdate(UpdateView):
-    """
-    Profile Create & Update Form
-    """
+    
     model = UserProfile
     fields = ['city', 'zip', 'skills', 'phone', 'picture', 'bio', 'experience', 'availability']
 '''
