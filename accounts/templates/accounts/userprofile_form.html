@@ -13,10 +13,10 @@
                         <p><strong>{{ error_message }}</strong></p>
                     {% endif %}
 
-                    <form class="form-horizontal" action="" method="post">
+                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
 
-                        {{ form.as_p }}
+                        {% include 'collab/form-template.html' %}
 
                         <table class="table">
                             {{ usersocials.management_form }}
@@ -47,8 +47,14 @@
                                 </tr>
                             {% endfor %}
                         </table>
-                        <input type="submit" value="Save"/>
-                        <a href="{% url 'accounts:dashboard' %}">back to dash</a>
+
+                        <button type="submit" class="btn btn-primary btn-lg" value="Save">Submit</button>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <a class="btn btn-secondary" href="{% url 'accounts:dashboard' %}">Back to Dashboard</a>
+                            </div>
+                        </div>
+
                     </form>
 
                 </div>

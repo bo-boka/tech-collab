@@ -8,5 +8,5 @@ dependencies:
 - lxml=4.6.3
 - pip=21.2.4
 - pip:
-    -django-taggit=1.5.1
+    - django-taggit=1.5.1
     - python-decouple=3.5
