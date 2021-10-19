@@ -51,35 +51,39 @@
                      <a href="{{ soc.url }}" target="_blank"><span class="{{ soc.get_platform_display }}"></span></a>&nbsp;
                 {% endfor %}
                 </center>
+
                 <div class="row container-fluid">
                     <div class="panel">
                         <div class="panel-body">
-                    <div class="col-md-6">
-                        <div class="well color">
-                            <h4>{{ project.city }}</h4>
-                            <hr>
-                            <h3>{{ project.description }}</h3>
-                            <hr>
-                            <h5>{{ project.date }}</h5>
+
+                            <div class="col-md-6">
+                                <div class="well color">
+                                    <h4>{{ project.city }}</h4>
+                                    <hr>
+                                    <h3>{{ project.description }}</h3>
+                                    <hr>
+                                    <h5>{{ project.date }}</h5>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h2>Skills Needed</h2>
+                                {% for skill in project.skills_needed.all %}
+                                    <div class="skill">{{ skill }}</div>
+                                {% endfor %}
+
+                                <h2>Collaborators</h2>
+                                <h4>Creator: <a href="{% url 'accounts:profile' project.founder %}">{{ project.founder }}</a></h4>
+                                {% for collab in project.collaborators.all %}
+                                    <a href=" {{ collab.user.userprofile.get_absolute_url }}">{{ collab }}</a>
+                                    <br>
+                                {% endfor %}
+                            </div>
+
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <h2>Skills Needed</h2>
-                        {% for skill in project.skills_needed.all %}
-                            <div class="skill">{{ skill }}</div>
-                        {% endfor %}
-
-                        <h2>Collaborators</h2>
-                        <h4>Creator: <a href="{% url 'accounts:profile' project.founder %}">{{ project.founder }}</a></h4>
-                        {% for collab in project.collaborators.all %}
-                            <a href=" {{ collab.user.userprofile.get_absolute_url }}">{{ collab }}</a>
-                            <br>
-                        {% endfor %}
-
-                    </div>
-                    </div>
-                    </div>
                 </div>
+
             </div>
         </div>
     </div>

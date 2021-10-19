@@ -71,12 +71,14 @@ class ProjectUpdate(UserAuthMixin, UpdateView):
     fields = ['title', 'city', 'description', 'skills_needed', 'archived']
 
     def form_valid(self, form):
+        """
+        Saves updated project & updates matches
+        :param form:
+        :return:
+        """
         form.save()
-        # skills needed always shows up as changed
-        print('skills_needed' in form.changed_data), 'expecting t or f'
         # regenerates project matches
-        # need to clear old matches first
-        # ProjectCreate().generate_matches(form)
+        generate_matches(form)
         return super(ProjectUpdate, self).form_valid(form)
 
 
