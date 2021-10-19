@@ -5,6 +5,51 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-body">
+
+                {% if error_message %}
+                    <p><strong>{{ error_message }}</strong></p>
+                {% endif %}
+                <center>
+                <button class="btn btn-success btn-lg" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  View Matches!! <span class="caret"></span>
+                </button>
+                <div class="collapse" id="collapseExample">
+                  <div class="well">
+                        {% if match_list %}
+                            {% for m in match_list %}
+                            <div class="row" style="padding:5px; font-size: 20px;">
+                                <div class="col-md-1 col-md-offset-1">
+                                    <form action="{% url 'accounts:request-send' m.project.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="recipient_id" value="{{ m.user.id }}"/>
+                                        <button type="submit" class="btn btn-default btn-sm">
+                                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-md-8">
+                                    <a href=" {{ m.project.get_absolute_url }}">{{ m.project }}</a> matches on {{ m.rank }} skills.
+                                </div>
+                                <div class="col-md-1">
+                                    <form action="{% url 'collab:project-delete' m.project.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="project_id" value="{{ m.project.id }}"/>
+                                        <button type="submit" class="btn btn-default btn-sm">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <br>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <h4>No matches... yet!</h4>
+                        {% endif %}
+                  </div>
+                </div>
+                </center>
+
+                <hr>
                 <div class="row container-fluid">
                     <div class="col-md-4">
                         <center>

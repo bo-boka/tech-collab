@@ -55,7 +55,7 @@ class Match(models.Model):
     rank = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
-        return str(self.user)
+        return str(self.project)
 
 
 class MatchInline(admin.TabularInline):

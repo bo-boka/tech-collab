@@ -62,6 +62,20 @@ class ProfileView(generic.DetailView):
     slug_field = "username"
     template_name = 'accounts/profile.html'
 
+    def get_context_data(self, **kwargs):
+        """
+        Puts User Matches in view, in order by rank (# of matching skills)
+        :param kwargs:
+        :return:
+        """
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        # only load if self.request.user == profile user id
+        print(self.object.id)
+        print(self.request.user.id)
+        if self.request.user.id is self.object.id:
+            context['match_list'] = Match.objects.filter(user=self.object.id).order_by('-rank')
+        return context
+
 
 class DashboardView(generic.ListView):
     """

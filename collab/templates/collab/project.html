@@ -27,7 +27,7 @@
                                     </form>
                                 </div>
                                 <div class="col-md-4">
-                                    <a href=" {{ m.user.userprofile.get_absolute_url }}">{{ m }}</a> matches on {{ m.rank }} skills.
+                                    <a href=" {{ m.user.userprofile.get_absolute_url }}">{{ m.user }}</a> matches on {{ m.rank }} skills.
                                 </div>
                                 <div class="col-md-1">
                                     <form action="{% url 'collab:project-delete' project.id %}" method="post" style="display: inline;">
