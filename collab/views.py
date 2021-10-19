@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from collab.models import Project
-from collab.models import Match
+from collab.models import Project, Match
 from taggit.models import Tag
 from django.contrib.auth.models import User
 from collab.mixins import UserAuthMixin, AuthRequiredMixin
+from .tc_lib import generate_matches
 # from .forms import ProjectCreateForm
 # from django.contrib.auth.decorators import login_required
 
@@ -49,35 +49,6 @@ class ProjectCreate(AuthRequiredMixin, CreateView):
     model = Project
     fields = ['title', 'city', 'description', 'skills_needed']
 
-    def generate_matches(self, form):
-        """
-        Gets project skills and city, finds users with those skills that live in the same city
-        and creates Match object with a rank of how many skills the user matched to the project.
-        :param form: project model form
-        :return: None
-        """
-        # grabs project skills & city
-        p_skills = Tag.objects.filter(project__id=form.instance.id)
-        p_city = Project.objects.filter(id=form.instance.id).values('city')[0]['city']
-
-        # grabs users by matching skills and location, excludes project creator
-        user_list = User.objects.filter(userprofile__skills__in=p_skills
-                                        ).filter(userprofile__city=p_city
-                                                 ).exclude(id=form.instance.founder.id)
-
-        # puts users in dict by their frequency (# matched skills) in queryset
-        dict = {}
-        for u in user_list:
-            if u not in dict:
-                dict[u] = 1
-            else:
-                dict[u] += 1
-
-        # converts user into match obj with frequency as rank
-        for key, value in dict.items():
-            m = Match(user=key, project=form.instance, rank=value)
-            m.save()
-
     def form_valid(self, form):
         """
         Adds founder to the project model form, saves the project in the database, calls the
@@ -88,7 +59,7 @@ class ProjectCreate(AuthRequiredMixin, CreateView):
         """
         form.instance.founder = self.request.user
         form.save()
-        self.generate_matches(form)
+        generate_matches(form)
         return super(ProjectCreate, self).form_valid(form)
 
 

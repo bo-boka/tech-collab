@@ -1,23 +1,17 @@
 # # -*- coding: utf-8 -*-
-# from __future__ import unicode_literals
-#
 from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import (
     authenticate,
     login,
     logout,)
-from .forms import UserRegForm, SocialUserFormSet
-from .forms import UserLoginForm
+from .forms import UserRegForm, UserLoginForm, SocialUserFormSet
 from django.views.generic import View
-from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from collab.models import Project
 from django.contrib.auth.models import User
-from accounts.models import UserProfile
-from accounts.models import Request
-from collab.models import Match
+from accounts.models import UserProfile, Request
+from collab.models import Match, Project
 from collab.mixins import UserAuthMixin
 from django.http import HttpResponseRedirect
 
@@ -68,12 +62,6 @@ class ProfileView(generic.DetailView):
     slug_field = "username"
     template_name = 'accounts/profile.html'
 
-'''
-class ProfileUpdate(UpdateView):
-    
-    model = UserProfile
-    fields = ['city', 'zip', 'skills', 'phone', 'picture', 'bio', 'experience', 'availability']
-'''
 
 class DashboardView(generic.ListView):
     """
@@ -103,7 +91,6 @@ class DashboardView(generic.ListView):
         return Project.objects.filter(founder=self.request.user)
 
 
-# get project_id, match_id, and add request w sender as user.request
 def sendrequest(request, project_id):
     """
     When user requests to work on a project with another user, a Collab Request is created that will
@@ -122,7 +109,6 @@ def sendrequest(request, project_id):
             'error_message': "You did not select a valid recipient",
         })
     else:
-        # create request obj
         sender = request.user
         req = Request(project=project, sender=sender, recipient=recipient, message="Let's work together")
         req.save()

@@ -20,7 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="87c37c0e-eae3-46fb-a504-d525bee23b72" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/collab/tc_lib.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collab/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/collab/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/techcollab/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/techcollab/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
