@@ -18,15 +18,17 @@
                                     <div class="row">
                                         {% for project in project_list %}
                                             <div class="row" style="padding:5px;">
-                                                <div class="col-md-8">
+                                                <div class="col-md-2">
                                                     <a href="{% url 'collab:project-update' project.id %}">
                                                         <button class="btn btn-warning btn-sm">
                                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                         </button>
                                                     </a>
+                                                </div>
+                                                <div class="col-md-8">
                                                     <strong><a align="center" href="{{ project.get_absolute_url }}">{{ project }}</a></strong>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-2">
                                                     <form action="{% url 'collab:project-delete' project.id %}" method="post" style="display: inline;">
                                                         {% csrf_token %}
                                                         <input type="hidden" name="project_id" value="{{ project.id }}"/>
@@ -56,6 +58,7 @@
                                             <div class="col-md-8">
                                                 <a href="{% url 'collab:project' req.project.id %}"><strong>{{ req.project.title }}</strong></a>
                                                  - Created by: <a href="{% url 'accounts:profile' req.sender %}">{{ req.sender }}</a>
+                                                <br> {{ req.date }}
                                             </div>
                                             <div class="col-md-2">
                                                 <form action="#" method="post" style="display: inline;">

@@ -21,7 +21,7 @@ class ProfileSocialUpdate(UpdateView):
     Profile Create/Update Form
     """
     model = UserProfile
-    fields = ['city', 'zip', 'skills', 'phone', 'picture', 'bio', 'experience', 'availability']
+    fields = ['name', 'pronouns', 'city', 'skills', 'email', 'phone', 'picture', 'bio']
 
     def get_context_data(self, **kwargs):
         """

@@ -10,14 +10,18 @@ from collab.models import Project
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from taggit.managers import TaggableManager
+from django.utils import timezone
 
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=15)
+    name = models.CharField(max_length=254)
+    pronouns = models.CharField(max_length=254, blank=True)
+    phone = models.CharField(max_length=15, blank=True)
+    email = models.EmailField(max_length=254)
     picture = models.ImageField(blank=True, null=True)
     city = models.CharField(max_length=50)
-    zip = models.CharField(max_length=15)
+    zip = models.CharField(max_length=15, blank=True)
     technologies = models.ManyToManyField(Technology, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     experience = models.TextField(max_length=500, blank=True)
@@ -53,6 +57,7 @@ class Request(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipient')
     message = models.TextField(max_length=500, blank=True)
+    date = models.DateTimeField("Date", default=timezone.now)
 
     def __str__(self):
         return 'From: ' + str(self.sender) + ' | ' + str(self.project)

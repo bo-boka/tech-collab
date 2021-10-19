@@ -10,25 +10,36 @@
                         <center>
                         <h1 class="heading" style="font-size: 25px;">{{ user.username }}</h1>
                         <img src="{{ user.userprofile.pic_url }}" class="img-responsive" style="width: 150px;">
+                        <h5>{{ user.userprofile.phone }}</h5>
+                        <h5>{{ user.userprofile.email }} </h5>
                         {% for soc in user.userprofile.socialuser_set.all %}
                             <a href="{{ soc.url }}" target="_blank"><span class="{{ soc.get_platform_display }}"></span></a>&nbsp;
                         {% endfor %}
-                        <h3>{{ user.userprofile.city }}</h3>
-                        <h5>{{ user.userprofile.phone }}</h5>
-                        <h5>{{ user.email }} </h5>
-
                         </center>
                     </div>
                     <div class="col-md-8 panel panel-default color">
                         <div class="panel-body color">
-                            <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+                            <h3>{{ user.userprofile.name }} </h3>
+                            <h5>{{ user.userprofile.pronouns }}</h5>
                             <div class="well">
+
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <strong>Availability:</strong>
+                                        <strong>City:</strong>
                                     </div>
                                     <div class="col-md-10">
-                                        {{ user.userprofile.availability }}
+                                        <h4> {{ user.userprofile.city }} </h4>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <strong>Skills:</strong>
+                                    </div>
+                                    <div class="col-md-10">
+                                        {% for skill in user.userprofile.skills.all %}
+                                            <div class="skill">{{ skill }}</div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <hr>
@@ -41,19 +52,6 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <strong>Experience:</strong>
-                                    </div>
-                                    <div class="col-md-10">
-                                        {{ user.userprofile.experience }}
-                                    </div>
-                                </div>
-                                <hr>
-                                {% for skill in user.userprofile.skills.all %}
-                                    <div class="skill">{{ skill }}</div>
-                                {% endfor %}
-
 
                             </div>
                         </div>
