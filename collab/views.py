@@ -8,7 +8,7 @@ from collab.models import Project, Match
 from taggit.models import Tag
 from django.contrib.auth.models import User
 from collab.mixins import UserAuthMixin, AuthRequiredMixin
-from .tc_lib import generate_matches
+import collab.tc_lib as tc_lib
 # from .forms import ProjectCreateForm
 # from django.contrib.auth.decorators import login_required
 
@@ -59,7 +59,9 @@ class ProjectCreate(AuthRequiredMixin, CreateView):
         """
         form.instance.founder = self.request.user
         form.save()
-        generate_matches(form)
+
+        tc_lib.generate_user_matches(form)
+
         return super(ProjectCreate, self).form_valid(form)
 
 
@@ -77,8 +79,9 @@ class ProjectUpdate(UserAuthMixin, UpdateView):
         :return:
         """
         form.save()
-        # regenerates project matches
-        generate_matches(form)
+
+        tc_lib.generate_user_matches(form)
+
         return super(ProjectUpdate, self).form_valid(form)
 
 

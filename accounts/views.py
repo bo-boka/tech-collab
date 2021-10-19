@@ -14,6 +14,7 @@ from accounts.models import UserProfile, Request
 from collab.models import Match, Project
 from collab.mixins import UserAuthMixin
 from django.http import HttpResponseRedirect
+import collab.tc_lib as tc_lib
 
 
 class ProfileSocialUpdate(UpdateView):
@@ -51,6 +52,9 @@ class ProfileSocialUpdate(UpdateView):
             if usersocials.is_valid():
                 usersocials.instance = self.object
                 usersocials.save()
+
+        tc_lib.generate_project_matches(form)
+
         return super(ProfileSocialUpdate, self).form_valid(form)
 
 
@@ -70,8 +74,6 @@ class ProfileView(generic.DetailView):
         """
         context = super(ProfileView, self).get_context_data(**kwargs)
         # only load if self.request.user == profile user id
-        print(self.object.id)
-        print(self.request.user.id)
         if self.request.user.id is self.object.id:
             context['match_list'] = Match.objects.filter(user=self.object.id).order_by('-rank')
         return context
