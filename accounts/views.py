@@ -1,6 +1,6 @@
-# # -*- coding: utf-8 -*-
+
 from django.db import transaction
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib.auth import (
     authenticate,
     login,
@@ -13,8 +13,9 @@ from django.contrib.auth.models import User
 from accounts.models import UserProfile, Request
 from collab.models import Match, Project
 from collab.mixins import UserAuthMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-import collab.tc_lib as tc_lib
+import collab.tc_library as tc_lib
 
 
 class ProfileSocialUpdate(UpdateView):
@@ -79,7 +80,7 @@ class ProfileView(generic.DetailView):
         return context
 
 
-class DashboardView(generic.ListView):
+class DashboardView(LoginRequiredMixin, generic.ListView):
     """
     Dashboard Page View
     """
@@ -170,7 +171,7 @@ class LoginView(View):
             password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
             login(request, user)
-            print(request.user.is_authenticated), 'yippy'
+            print(request.user.is_authenticated, 'yippy!')
             return redirect('accounts:dashboard')
         return render(request, self.template_name, {'form': form})
 

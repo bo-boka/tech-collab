@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -8,7 +5,7 @@ from collab.models import Project, Match
 from taggit.models import Tag
 from django.contrib.auth.models import User
 from collab.mixins import UserAuthMixin, AuthRequiredMixin
-import collab.tc_lib as tc_lib
+import collab.tc_library as tc_lib
 # from .forms import ProjectCreateForm
 # from django.contrib.auth.decorators import login_required
 

@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'collab.apps.CollabConfig',
     'accounts.apps.AccountsConfig',
     'taggit',
-    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -124,8 +123,6 @@ USE_L10N = True
 USE_TZ = True
 
 TAGGIT_CASE_INSENSITIVE = True
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Static files (CSS, JavaScript, Images)
