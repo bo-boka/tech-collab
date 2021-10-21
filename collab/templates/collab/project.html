@@ -48,7 +48,9 @@
                 </div>
                 <div class="heading">{{ project.title }}</div>
                 {% for soc in project.socialproj_set.all %}
-                     <a href="{{ soc.url }}" target="_blank"><span class="{{ soc.get_platform_display }}"></span></a>&nbsp;
+                    <div class="soc-icon">
+                        <a href="{{ soc.url }}" target="_blank"><img src="{{ soc.platform }}" style="width: 30px;"></a>
+                    </div>
                 {% endfor %}
                 </center>
 

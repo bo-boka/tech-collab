@@ -54,7 +54,7 @@ class ProfileSocialUpdate(UpdateView):
                 usersocials.instance = self.object
                 usersocials.save()
 
-        tc_lib.generate_project_matches(form)
+        # tc_lib.generate_project_matches(form)
 
         return super(ProfileSocialUpdate, self).form_valid(form)
 

@@ -66,26 +66,22 @@ class Request(models.Model):
 
 
 class SocialUser(models.Model):
-    WEBSITE = 'ps'
-    GITHUB = 'gh'
-    LINKEDIN = 'li'
-    TWITTER = 'tw'
-    TRELLO = 'tl'
-    FACEBOOK = 'fb'
-    INSTAGRAM = 'ig'
-    YOUTUBE = 'yt'
+    WEBSITE = '/static/images/website.png'
+    GITHUB = '/static/images/github.png'
+    LINKEDIN = '/static/images/linkedin.png'
+    TWITTER = '/static/images/twitter.png'
+    FACEBOOK = '/static/images/facebook.png'
+    INSTAGRAM = '/static/images/instagram.png'
     PLATFORM_CHOICES = (
-        (WEBSITE, 'fa fa-globe fa-3x'),
-        (GITHUB, 'fa fa-github fa-3x'),
-        (LINKEDIN, 'fa fa-linkedin fa-3x'),
-        (TWITTER, 'fa fa-twitter fa-3x'),
-        (TRELLO, 'fa fa-trello fa-3x'),
-        (FACEBOOK, 'fa fa-facebook-square fa-3x'),
-        (INSTAGRAM, 'fa fa-instagram fa-3x'),
-        (YOUTUBE, 'fa fa-youtube fa-3x')
+        (WEBSITE, 'Website'),
+        (GITHUB, 'GitHub'),
+        (LINKEDIN, 'LinkedIn'),
+        (TWITTER, 'Twitter'),
+        (FACEBOOK, 'Facebook'),
+        (INSTAGRAM, 'Instagram'),
     )
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    platform = models.CharField(max_length=2, choices=PLATFORM_CHOICES, default=WEBSITE)
+    platform = models.CharField(max_length=100, choices=PLATFORM_CHOICES, default=WEBSITE)
     url = models.URLField(blank=True, null=True)
 
     def __str__(self):

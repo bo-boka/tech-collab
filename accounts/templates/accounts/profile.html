@@ -55,11 +55,15 @@
                         <center>
                         <h1 class="heading" style="font-size: 25px;">{{ user.username }}</h1>
                         <img src="{{ user.userprofile.pic_url }}" class="img-responsive" style="width: 150px;">
-                        <h5>{{ user.userprofile.phone }}</h5>
-                        <h5>{{ user.userprofile.email }} </h5>
+                        <h4>{{ user.userprofile.phone }}</h4>
+                        <h4>{{ user.userprofile.email }} </h4>
+                        <div>
                         {% for soc in user.userprofile.socialuser_set.all %}
-                            <a href="{{ soc.url }}" target="_blank"><span class="{{ soc.get_platform_display }}"></span></a>&nbsp;
+                            <div class="soc-icon">
+                            <a href="{{ soc.url }}" target="_blank"><img src="{{ soc.platform }}" style="width: 30px;"></a>
+                            </div>
                         {% endfor %}
+                        </div>
                         </center>
                     </div>
                     <div class="col-md-8 panel panel-default color">
