@@ -55,6 +55,7 @@ class ProjectCreate(AuthRequiredMixin, CreateView):
         :return: project.html page
         """
         form.instance.founder = self.request.user
+        print('Project Create user:', self.request.user)
         form.save()
 
         tc_lib.generate_user_matches(form)
