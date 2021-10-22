@@ -17,8 +17,8 @@ TEST_PROJECTS = [
      'skills_needed': 'Java, Python, HTML', 'archived': 'False'}
 ]
 TEST_USERS = [
-    {'username': 'testuser_a', 'email': 'test.b@gmail.com', 'password': '1234pass'},
-    {'username': 'testuser_b', 'email': 'test.c@gmail.com', 'password': '1234pass'}
+    {'username': 'testuser_a', 'email': 'test.a@gmail.com', 'password': '1234pass'},
+    {'username': 'testuser_b', 'email': 'test.b@gmail.com', 'password': '1234pass'}
 ]
 TEST_PROFILES = [
     {'name': 'Test Profile A', 'pronouns': 'he/him', 'city': 'Las Vegas', 'skills': 'Java, Python',
@@ -68,15 +68,12 @@ class ProjectTests(TestCase):
         self.assertTrue(user.is_authenticated)
         # get project 0 to update
         project = Project.objects.filter(title=TEST_PROJECTS[0]['title'])[0]
-        print('update proj:', project)
         # update with different project data
         TEST_PROJECTS[1]['founder'] = user  # add founder (logged in user)
-        response = self.client.post('/collab/project/update/' + str(project.id), {**TEST_PROJECTS[1]}, follow=True)
+        response = self.client.post(reverse('collab:project-update', args=[str(project.id)]), {**TEST_PROJECTS[1]}, follow=True)
         self.assertEqual(response.status_code, 200)
-        upd_proj = Project.objects.filter(title=TEST_PROJECTS[1]['title'])[0]
-        print('updated project:', upd_proj)
-        city = upd_proj.city
-        self.assertEqual(city, TEST_PROJECTS[1]['city'])
+        new_city = Project.objects.filter(title=TEST_PROJECTS[1]['title'])[0].city
+        self.assertEqual(new_city, TEST_PROJECTS[1]['city'])
 
     def test_add_project(self):
         user = auth.get_user(self.client)
@@ -93,7 +90,6 @@ class ProjectTests(TestCase):
 
     def test_view_project(self):
         project = Project.objects.all()[0]
-        print('project obj:', project)
         response = self.client.get('/collab/' + str(project.id), follow=True)
         self.assertEqual(response.status_code, 200)
 

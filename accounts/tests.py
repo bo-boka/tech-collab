@@ -7,8 +7,8 @@ from django.urls import reverse
 
 
 TEST_USERS = [
-    {'username': 'testuser_a', 'email': 'test.b@gmail.com', 'password': 'a1234pass'},
-    {'username': 'testuser_b', 'email': 'test.c@gmail.com', 'password': 'b1234pass'}
+    {'username': 'testuser_a', 'email': 'test.a@gmail.com', 'password': 'a1234pass'},
+    {'username': 'testuser_b', 'email': 'test.b@gmail.com', 'password': 'b1234pass'}
 ]
 TEST_NEW_USERS = [
     {'username': 'testuser_c', 'email': 'test.c@gmail.com', 'password': 'c1234pass'},
@@ -59,7 +59,6 @@ class UserTests(TestCase):
     def test_users_exist(self):
         user_count = User.objects.all().count()
         self.assertEqual(user_count, len(TEST_USERS))
-
 
     def test_register(self):
         data = {'username': TEST_NEW_USERS[0]['username'],

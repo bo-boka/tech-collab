@@ -11,9 +11,9 @@ TEST_PROJECTS = [
      'skills_needed': 'Java, Python, HTML'}
 ]
 TEST_USERS = [
-    {'username': 'testuser_emptyprofile', 'email': 'test.a@gmail.com', 'password': '1234pass'},
-    {'username': 'testuser_a', 'email': 'test.b@gmail.com', 'password': '1234pass'},
-    {'username': 'testuser_b', 'email': 'test.c@gmail.com', 'password': '1234pass'}
+    {'username': 'testuser_a', 'email': 'test.a@gmail.com', 'password': '1234pass'},
+    {'username': 'testuser_b', 'email': 'test.b@gmail.com', 'password': '1234pass'},
+    {'username': 'testuser_c', 'email': 'test.c@gmail.com', 'password': '1234pass'}
 ]
 TEST_PROFILES = [
     {'name': 'Test Profile A', 'pronouns': 'he/him', 'city': 'Las Vegas', 'skills': 'Java, Python',
@@ -35,14 +35,17 @@ class LogicTests(TestCase):
             user = User.objects.create_user(username=u['username'], email=u['email'], password=u['password'])
             user.save()
 
-        # login user
+        # populate user profiles
+        user_a = User.objects.get(username=TEST_USERS[0]['username'])
+        user_b = User.objects.get(username=TEST_USERS[1]['username'])
+        user_c = User.objects.get(username=TEST_USERS[2]['username'])
+        response = self.client.post(reverse('accounts:profile-update', args=[str(user_a.id)]), {**TEST_PROFILES[0]}, follow=True)
+        response = self.client.post(reverse('accounts:profile-update', args=[str(user_b.id)]), {**TEST_PROFILES[1]}, follow=True)
+        response = self.client.post(reverse('accounts:profile-update', args=[str(user_c.id)]), {**TEST_PROFILES[2]}, follow=True)
+
+        # login user_a
         self.client.login(username=TEST_USERS[0]['username'], password=TEST_USERS[0]['password'])
         user_id = auth.get_user(self.client).id
-
-        # populate user profile
-        response = self.client.post(reverse('accounts:profile-update', args=[str(user_id)]), {**TEST_PROFILES[0]}, follow=True)
-        city = UserProfile.objects.get(user=user_id).city
-
         '''
         user = User.objects.get(username=TEST_USERS[1]['username'])
         user.userprofile.name = TEST_PROFILES[0]['name']
